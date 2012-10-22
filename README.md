@@ -1,4 +1,4 @@
-skeleton
-========
+parcel
+======
 
-Skeleton for Facebook apps
+Pass the Parcel - Think! Social Media Facebook App
