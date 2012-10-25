@@ -27,11 +27,13 @@ a:active { outline: none; }
 
 #enter { position: absolute; top: -900px; }
 #enter .copy-box { position: absolute; top: 330px; left: 120px; width: 578px; height: 197px; background: url(../img/enter/copy-panel.png) no-repeat; }
-#enter .copy-box h1 { position: absolute; bottom: 40px; left: 30px; text-align: center; width: 518px; font-size: 1.4em; letter-spacing: 0px; color: #3f3f3f; text-shadow: 1px 1px 2px #dfdfdf; opacity: 0.99; }
+#enter .copy-box h1 { position: absolute; bottom: 55px; left: 30px; text-align: center; width: 518px; font-size: 1.4em; letter-spacing: 0px; color: #3f3f3f; text-shadow: 1px 1px 2px #dfdfdf; opacity: 0.99; }
 #enter .button-link { top: 495px; left: 300px; text-decoration: none; color: #fff; text-align: center; font-size: 1.4em; padding: 10px 0 0 0; text-shadow: 1px 1px 3px #000; }
 #enter .button-link .arrow { color: #ffe7d0; font-size: 0.7em; padding-bottom: 3px; }
 #enter .prize-box { top: 230px; left: 150px; }
 
+#result { position: absolute; display: none; }
+#result #copy-box { width: 328px; height: 187px; background: url(../img/results/copy-panel.png) no-repeat; top: 345px; left: 245px; }
 
 @font-face {
 	font-family: 'GothamBook';

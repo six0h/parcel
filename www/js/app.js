@@ -19,13 +19,15 @@ $(function() { // ENCAPSULATE EVERYTHING IN JQUERY, EVEN FUNCTIONS
 
 // DEFINE GLOBALS
 	var	pages = $('#page-wrapper>div'),
-		page_tab = 'https://home.codyhalovich.com/nsw/www/home.php',
-		channel = '//home.codyhalovich.com/nsw/www/channel.html',
+		page_tab = 'https://apps3.ionflo.com/passtheparcel/www/home.php',
+		channel = '//apps3.ionflo.com/passtheparcel/www/channel.html',
 		app_id = '352599924799511',
 		user_info = '',
-		user_id = '';
+		user_id = '',
+		access_token = ''
+		animated = 0;
 
-	var i = 300;
+	var i = 1250;
 
 
 /*///////////////////////////////////////////////
@@ -54,7 +56,9 @@ $(function() { // ENCAPSULATE EVERYTHING IN JQUERY, EVEN FUNCTIONS
 	}
 
 	$('.auth').live('click', function() {
-		FB.login(null, {scope: 'email,publish_stream'});
+		FB.login(function(response) {
+			// auth change is monitored by facebook init, no need for a callback here
+		}, {scope: 'email,publish_stream'});
 	});
 
 	$('.openParcel').live('click', function() {
@@ -79,12 +83,52 @@ $(function() { // ENCAPSULATE EVERYTHING IN JQUERY, EVEN FUNCTIONS
 		});	
 	});
 
-//INITIALIZE FACEBOOK
+	function showShare() {
+
+	}
+
+	function registration() {
+
+		$.ajax({
+			type: "POST",
+			dataType: 'json',
+			url: 'ajax/register.php',
+			data: user_info,
+			success: function(response) {
+				user_info.access_token = response.access_token;
+				user_info.expiry = response.expiry;
+				if(response.status == 200) {
+					$('#auth-btn')
+						.html('Open the Parcel <span class="arrow">&gt;</span>')
+						.fadeIn();
+					$('#enter .copy-box h1').html(user_info.first_name + ', Open the parcel for your chance to Love Every Second of Sydney In Summer');
+					if(animated == 0) {
+						showEnter();
+					}
+				} else if (response.status == 201) {
+					showShare();							
+				}
+			},
+			error: function(response) {
+				console.log(response.responseText);
+			}
+		});
+
+	}
+/*///////////////////////////////////////////////
+/*
+/* Initialize Facebook 
+/*
+/*///////////////////////////////////////////////
+
+
 	fbInit();
 
 	function fbInit() {
+		
 		  window.fbAsyncInit = function() {
 		     
+			var animated = 0;
 		     FB.init({
 		      appId	 : app_id,	
 		      channelUrl : channel, // Channel File
@@ -99,18 +143,22 @@ $(function() { // ENCAPSULATE EVERYTHING IN JQUERY, EVEN FUNCTIONS
 
 		    FB.Event.subscribe('auth.statusChange', function(response) {
 		    	if(response.status == 'connected') {
+				access_token = response.authResponse.accessToken;
+				user_id = response.authResponse.userID;
 				$('#auth-btn')
 					.removeClass('auth')
 					.addClass('openParcel')
-					.fadeOut()
-					.html('Open the Parcel <span class="arrow">&gt;</span>')
-					.fadeIn();
+					.fadeOut();
+
 				FB.api('/me', function(response) {
-					$('#enter .copy-box h1').html('Hi, ' + response.first_name + '! <br />Open the parcel for your chance to Love Every Second of Sydney In Summer');
 					user_info = response;
+					user_info.access_token = access_token;
+					registration();
 				});
+			} else {
+				showEnter();
+				animated = 1;
 			}
-			showEnter();
 		    });
 
 		  };

@@ -14,3 +14,10 @@
 	</div>
 
 </div>
+
+<div id="result">
+	<div class="copy-box">
+		<h1>Share with friends!</h1>
+		<p>You have already opened the parcel today, we'll give you another chance to experience Sydney in Summer if you share with friends!</p>
+	</div>
+</div>
