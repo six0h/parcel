@@ -92,8 +92,10 @@ $(function() { // ENCAPSULATE EVERYTHING IN JQUERY, EVEN FUNCTIONS
 			url: 'ajax/register.php',
 			data: user_info,
 			success: function(response) {
+				console.log(response);
 				user_info.access_token = response.access_token;
 				user_info.expiry = response.expiry;
+				user_info.salt = response.salt;
 				if(response.status == 200) {
 					$('#auth-btn')
 						.html('Open the Parcel <span class="arrow">&gt;</span>')

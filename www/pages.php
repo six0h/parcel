@@ -18,6 +18,9 @@
 <div id="result">
 	<div class="copy-box">
 		<h1>Share with friends!</h1>
-		<p>You have already opened the parcel today, we'll give you another chance to experience Sydney in Summer if you share with friends!</p>
+		<p>You have already opened the parcel today, we'll give you another chance to experience Sydney in Summer if you pass the parcel to your friends!</p>
 	</div>
+
+	<a href="#" class="button-small">Skip <span class="arrow">&gt;</span></a>
+	<a href="#" id="result-btn" class="button-half">Pass it On <span class="arrow">&gt;</span></a>
 </div>

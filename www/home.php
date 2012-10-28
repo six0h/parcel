@@ -15,20 +15,21 @@ if($banned > 0) {
 	exit();
 }
 
-$time = date('U');
+$date = date('U'); $time = date('U');
 
-$creds = array(
+$creds = array( // FACEBOOK APP CREDS
         'appId' => APP_ID,
-	'secret' => APP_SECRET,
-	'cookie' => true
+		'secret' => APP_SECRET,
+		'cookie' => true
 );
 
+// INIT FACEBOOK
 $facebook = new Facebook($creds);
-$sr = $facebook->getSignedRequest();
+$sr = $facebook->getSignedRequest(); // GET SIGNED REQUEST FROM FB
 
+// FIND OUT IF USER LIKED PAGE
 $liked = $sr['page']['liked'];
 
-$date = date('U');
 
 ?>
 
@@ -50,6 +51,7 @@ $date = date('U');
 	<script type="text/javascript" src="js/jquery-fancybox.js"></script>
 	<script type="text/javascript" src="js/modernizr.js"></script>
 	<script type="text/javascript" src="js/app.js?date=<?php $date; ?>"></script>
+	<script type="text/javascript" src="js/app-config.js?date=<?php $date; ?>"></script>
 	<?php if($liked != 1) { ?>
 		<script type="text/javascript" src="js/like.js?date=<?php $date; ?>"></script>
 	<? } ?>

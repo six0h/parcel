@@ -10,6 +10,8 @@ a:active { outline: none; }
 .animate { display: block; }
 .prize-box { position: absolute; bottom: 15px; left: 30px; width: 514px; height: 188px; background: url(../img/prizeboxes.png) no-repeat;  }
 .button-link { position: absolute; display: block; width: 240px; height: 45px; background: url(../img/button.png) no-repeat; }
+.button-half { position: absolute; display: block; width: 160px; height: 45px; background: url(../img/button-half.png) no-repeat; }
+.button-small { position: absolute; display: block; width: 100px; height: 35px; background: url(../img/button-small.png) no-repeat; }
 
 #page-wrapper { position: relative; background: url(../img/bg.jpg) no-repeat; width: 809px; height: 988px; overflow: hidden; margin: 0 auto; }
 
@@ -27,13 +29,18 @@ a:active { outline: none; }
 
 #enter { position: absolute; top: -900px; }
 #enter .copy-box { position: absolute; top: 330px; left: 120px; width: 578px; height: 197px; background: url(../img/enter/copy-panel.png) no-repeat; }
-#enter .copy-box h1 { position: absolute; bottom: 55px; left: 30px; text-align: center; width: 518px; font-size: 1.4em; letter-spacing: 0px; color: #3f3f3f; text-shadow: 1px 1px 2px #dfdfdf; opacity: 0.99; }
+#enter .copy-box h1 { position: absolute; bottom: 55px; left: 30px; text-align: center; width: 518px; font-size: 1.4em; letter-spacing: 0px; color: #333; text-shadow: 2px 2px 2px #c0c0c0; opacity: 0.99; }
 #enter .button-link { top: 495px; left: 300px; text-decoration: none; color: #fff; text-align: center; font-size: 1.4em; padding: 10px 0 0 0; text-shadow: 1px 1px 3px #000; }
 #enter .button-link .arrow { color: #ffe7d0; font-size: 0.7em; padding-bottom: 3px; }
 #enter .prize-box { top: 230px; left: 150px; }
 
-#result { position: absolute; display: none; }
-#result #copy-box { width: 328px; height: 187px; background: url(../img/results/copy-panel.png) no-repeat; top: 345px; left: 245px; }
+#result { position: absolute; top: 10px; display: none; }
+#result .copy-box { position: absolute; width: 288px; height: 147px; background: url(../img/results/copy-panel.png) no-repeat; padding: 20px; top: 345px; left: 245px; }
+#result .copy-box h1 { width: 288px; text-align: center; font-weight: bold; font-size: 1.6em; color: #f0791a; padding: 5px 0 10px 0; text-shadow: 2px 2px 2px #c0c0c0; }
+#result .copy-box p { width: 288px; font-size: 1.25em; text-align: center; color: #333; text-shadow: 2px 2px 2px #c0c0c0; }
+
+#result .button-half { top: 500px; left: 287px; padding: 10px 0 0 18px; font-size: 1.4em; color: #fff; text-shadow: 2px 2px 3px #c0c0c0; text-decoration: none; font-weight: bold; }
+#result .button-small { top: 505px; left: 432px; padding: 8px 0 0 25px; font-size: 1em; color: #fff; text-shadow: 2px 2px 3px #c0c0c0; text-decoration: none; font-weight: bold; }
 
 @font-face {
 	font-family: 'GothamBook';
