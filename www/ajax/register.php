@@ -117,19 +117,24 @@ if($exists == 0) {
 	
 	foreach($time_check as $time) {
 		$todays_time = $time['date']->sec;
-		$last_claim = $time['last_claim'];
+		$last_claim = $time['last_claim']->sec;
 		$campaign_id = $time['_id'];
+		$todays_key = $time['key'];
+		$winner = $time['winner'];
 	}
 
 	if($todays_time < $now->sec) {
 
 		$claim_expiry = strtotime('- 5 minutes');
-		$check_claim = $db->select('campaigns', array('last_claim'))
-
+		if($last_claim < $claim_expiry) {
+			if(!isset($winner)) {
+				$salt = $todays_key;
+			} 
+		}
 	}
 }
 
-
+if(!isset($salt)) $salt = rand_char(16);
 
 $response['errors'] = $errors;
 $response['status'] = $status;
