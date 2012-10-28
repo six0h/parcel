@@ -2,3 +2,4 @@ config.php
 assets/
 *.swp
 .fuse*
+app-config.js

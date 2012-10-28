@@ -60,12 +60,21 @@ function check_bans() {
 
 }
 
+function numberInRange($min, $max, $quantity) {
+	$numbers = range($min, $max);
+	shuffle($numbers);
+	return array_slice($numbers, 0, $quantity);
+}
+
 function rand_char($length) {
-  $random = '';
-  for ($i = 0; $i < $length; $i++) {
-    $random .= chr(mt_rand(33, 126));
-  }
-  return $random;
+	$key = '';
+	$keys = array_merge(range(0,9), range('a', 'z'));
+
+	for($i=0; $i < $length; $i++) {
+		$key .= $keys[array_rand($keys)];
+	}
+
+	return $key;
 }
 
 ?>

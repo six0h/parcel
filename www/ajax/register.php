@@ -106,11 +106,19 @@ if($exists == 0) {
 		$status = 203;
 		$errors[] = $first_name + ' played twice today';
 	} 
+
+	// CHECK IF THE TIME OF DAY HAS PASSED
+	$today = new MongoDate(strtotime('today'));
+	$now = new MongoDate();
+	$tomorrow = new MongoDate(strtotime('tomorrow'));
+
+	$time_check = $db->select('campaigns', array('date' => array('$gte' => $today), 'date' => array('$lt' => $tomorrow)));
+	foreach($time_check as $time) $todays_time = $time['date']->sec;
 }
 
 $response['errors'] = $errors;
 $response['status'] = $status;
-$response['salt'] = $rand_key;
+$response['salt'] = rand_char(16);
 $response['access_token'] = $output['access_token'];
 $response['expiry'] = date('U') - $expiry->sec;
 
