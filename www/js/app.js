@@ -19,9 +19,6 @@ $(function() { // ENCAPSULATE EVERYTHING IN JQUERY, EVEN FUNCTIONS
 
 // DEFINE GLOBALS
 	var	pages = $('#page-wrapper>div'),
-		page_tab = 'https://apps3.ionflo.com/passtheparcel/www/home.php',
-		channel = '//apps3.ionflo.com/passtheparcel/www/channel.html',
-		app_id = '352599924799511',
 		user_info = '',
 		user_id = '',
 		access_token = ''
