@@ -4,6 +4,8 @@ require_once('../config.php');
 require_once( BASE_PATH . 'functions.php');
 require_once( BASE_PATH . 'sdk/facebook-sdk/facebook.php');
 
+date_default_timezone_set('Australia/Sydney');
+
 $banned = check_bans();
 if($banned > 0) {
 	?>
@@ -66,6 +68,7 @@ $liked = $sr['page']['liked'];
 
 	<div id="thedark"></div>
 	<div id="thered"></div>
+	<div id="finalpage"></div>
 
 	<div id="title"></div>
 	<div id="love-logo"></div>
@@ -77,8 +80,8 @@ $liked = $sr['page']['liked'];
 	require_once('like-gate.php');
 } ?>
 
+<a href="#" id="cheat">Cheater!</a>
 </div>
-
 
 <script type="text/javascript">
 

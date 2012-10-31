@@ -53,7 +53,7 @@ if($exists == 0) {
 		// INSERT INTO DATABASE
 		$db->insert('users',$data);
 	} catch (Exception $e) {
-		$errors = $e->getMessage();
+		$errors[] = $e->getMessage();
 		$status = 500;
 	}
 } else { // IF USER IS ALREADY IN DATABASE
@@ -67,17 +67,27 @@ if($exists == 0) {
 		'location' => $loc,
 		'access_token' => $output['access_token'],
 		'expires' => $expires);
-	$update_user = $db->update(array('fbid'=>$id), array('$set'=>$updates));
+
+	try {
+
+		$update_user = $db->update('users',array('fbid'=>$id),array('$set'=>$updates));
+
+	} catch (Exception $e) {
+		$errors[] = $e->getMessage();
+		$status = 500;
+		$response = array('errors'=>$errors,'status'=>$status);
+		echo json_encode($response);
+		exit();
+	}
 
 	$now = date('U'); // TODAYS DATE
-	$today = strtotime('today'); // TIMESTAMP FOR BEGINNING OF TODAY
-	$tomorrow = strtotime('tomorrow'); // TIMESTAMP FOR BEGINNING OF TOMORROW
+	$today = new MongoDate(strtotime('today')); // TIMESTAMP FOR BEGINNING OF TODAY
+	$tomorrow = new MongoDate(strtotime('tomorrow')); // TIMESTAMP FOR BEGINNING OF TOMORROW
 
 	// CHECK IF USER HAS PLAYED TODAY
 	$play_today = $db->count('plays', array(
 		'fbid' => $id,
-		'date' => array('$lt'=>$tomorrow),
-		'date' => array('$gte'=>$today)
+		'date' => array('$lt'=>$tomorrow,'$gte'=>$today)
 	));
 
 	// IF THEY HAVE NOT PLAYED, PROCEED AS NORMAL
@@ -88,15 +98,17 @@ if($exists == 0) {
 		// CHECK IF THEY'VE SHARED WITH FRIENDS
 		$count_plays = array(
 			'fbid' => $id,
-			'date' => array('$lt'=>$tomorrow),
-			'date' => array('$gte'=>$today),
+			'date' => array('$lt'=>$tomorrow,'$gte'=>$today),
 			'shared' => 1);
 		$plays_shared = $db->count('plays', $count_plays);
 		
 		// IF THEY HAVE NOT SHARED WITH FRIENDS
 		if($plays_shared == 0) {
-			$status = 201;
-			$errors[] = $first_name + ' played once today, and did not share with any friends.';
+			$response = array(
+				'status' => 201,
+				'errors' => array('User played today, but did not share'));
+			echo json_encode($response);
+			exit();
 		} elseif ($plays_shared == 1) { // IF THEY HAVE SHARED WITH FRIENDS
 			$status = 202;
 			$errors[] = $first_name + ' played once today, and shared with a friend, they get to play again.';
@@ -114,13 +126,19 @@ if($exists == 0) {
 	$tomorrow = new MongoDate(strtotime('tomorrow'));
 
 	$time_check = $db->select('campaigns', array('date' => array('$gte' => $today), 'date' => array('$lt' => $tomorrow)));
-	
+
 	foreach($time_check as $time) {
 		$todays_time = $time['date']->sec;
-		$last_claim = $time['last_claim']->sec;
-		$campaign_id = $time['_id'];
+
+		if(isset($time['last_claim']->sec)) {
+			$last_claim = $time['last_claim']->sec;
+		} else {
+			$last_claim = 0;
+		} 
+
 		$todays_key = $time['key'];
-		$winner = $time['winner'];
+		if(isset($time['winner'])) $winner = $time['winner'];
+		$_id = $time['_id'];
 	}
 
 	if($todays_time < $now->sec) {
@@ -129,6 +147,13 @@ if($exists == 0) {
 		if($last_claim < $claim_expiry) {
 			if(!isset($winner)) {
 				$salt = $todays_key;
+				try {
+					$db->update('campaigns',array('_id'=>$_id),array('$set'=>array('last_claim'=>new MongoDate())));
+				} catch (Exception $e) {
+					$status = 500;
+					$errors[] = 'Could not update last_claim time, randomizing salt';
+					$salt = rand_char(16);
+				}
 			} 
 		}
 	}
@@ -140,9 +165,7 @@ $response['errors'] = $errors;
 $response['status'] = $status;
 $response['salt'] = $salt;
 $response['access_token'] = $output['access_token'];
-$response['expiry'] = date('U') - $expiry->sec;
 
 echo json_encode($response);
 
 ?>
-	

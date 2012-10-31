@@ -3,12 +3,12 @@
 class Db {
 
 	private		$m = '',
-			$db_name = DB_NAME,
-			$last_id;
+				$db_name = DB_NAME,
+				$last_id;
 
 	public function __construct() {
 
-        	$uri = "mongodb://" . DB_USER . ":" . DB_PASS . "@localhost/" . DB_NAME; 
+        $uri = "mongodb://" . DB_USER . ":" . DB_PASS . "@localhost/" . DB_NAME; 
 		$this->m = new Mongo($uri);	
 		$m = $this->m;
 		$db_name = $this->db_name;
@@ -16,8 +16,13 @@ class Db {
 
 	}
 
-	public function select($collection,$crit = array()) {
+	public function select($collection,$crit = array(),$options = array()) {
 		$record = $this->db->$collection->find($crit);
+		if(isset($options['sort'])) {
+			$record->sort($options['sort']);
+		} else if (isset($options['limit'])) {
+			$record->limit($options['limit']);
+		}
 		return $record;
 	}
 

@@ -13,10 +13,13 @@ a:active { outline: none; }
 .button-half { position: absolute; display: block; width: 160px; height: 45px; background: url(../img/button-half.png) no-repeat; }
 .button-small { position: absolute; display: block; width: 100px; height: 35px; background: url(../img/button-small.png) no-repeat; }
 
+#cheat { display: block; color: #000; position: absolute; top: 10px; left: 30px; }
+
 #page-wrapper { position: relative; background: url(../img/bg.jpg) no-repeat; width: 809px; height: 988px; overflow: hidden; margin: 0 auto; }
 
 #thedark { width: 809px; height: 988px; background: #000; opacity: 0; }
 #thered { display: none; position: absolute; top: 0; left: 0; background: url(../img/bg-redparcel.jpg) no-repeat; width: 809px; height: 988px; }
+#finalpage { display: none; position: absolute; top: 0; left: 0; background: url(../img/bg-finalpage.jpg) no-repeat; width: 809px; height: 988px; }
 
 #title { position: absolute; width: 519px; height: 86px; background: url(../img/passtheparcel.png) no-repeat; top: -900px; left: 150px; }
 #love-logo { position: absolute; top: 40px; left: -500px; width: 195px; height: 40px; background: url(../img/loveeverysecond.png) no-repeat; }
@@ -30,8 +33,8 @@ a:active { outline: none; }
 #enter { position: absolute; top: -900px; }
 #enter .copy-box { position: absolute; top: 330px; left: 120px; width: 578px; height: 197px; background: url(../img/enter/copy-panel.png) no-repeat; }
 #enter .copy-box h1 { position: absolute; bottom: 55px; left: 30px; text-align: center; width: 518px; font-size: 1.4em; letter-spacing: 0px; color: #333; text-shadow: 2px 2px 2px #c0c0c0; opacity: 0.99; }
-#enter .button-link { top: 495px; left: 300px; text-decoration: none; color: #fff; text-align: center; font-size: 1.4em; padding: 10px 0 0 0; text-shadow: 1px 1px 3px #000; }
-#enter .button-link .arrow { color: #ffe7d0; font-size: 0.7em; padding-bottom: 3px; }
+.button-link { top: 495px; left: 300px; text-decoration: none; color: #fff; text-align: center; font-size: 1.4em; padding: 10px 0 0 0; text-shadow: 1px 1px 3px #000; }
+.button-link .arrow { color: #ffe7d0; font-size: 0.7em; padding-bottom: 3px; }
 #enter .prize-box { top: 230px; left: 150px; }
 
 #result { position: absolute; top: 10px; display: none; }
@@ -41,6 +44,26 @@ a:active { outline: none; }
 
 #result .button-half { top: 500px; left: 287px; padding: 10px 0 0 18px; font-size: 1.4em; color: #fff; text-shadow: 2px 2px 3px #c0c0c0; text-decoration: none; font-weight: bold; }
 #result .button-small { top: 505px; left: 432px; padding: 8px 0 0 25px; font-size: 1em; color: #fff; text-shadow: 2px 2px 3px #c0c0c0; text-decoration: none; font-weight: bold; }
+
+#winner-form { display: none; position: absolute; top: 235px; left: 130px; width: 508px; height: 397px; background: url(../img/form-bg.png) no-repeat; z-index: 1; padding: 25px; opacity: 0; }
+#winner-form h1 { font-size: 1.5em; font-weight: bold; text-align: center;  color: #000; padding: 5px 0 10px 0; text-shadow: 2px 2px 2px #c0c0c0; }
+#winner-form ul { list-style-type: none; margin-top: 10px; }
+#winner-form li { position: relative; margin-bottom: 15px; }
+#winner-form li label { width: 250px; text-align: right; float: left; display: block; padding-top: 5px; margin-right: 5px; }
+#winner-form li input { width: 200px; padding: 2px; }
+#winner-form #submit { background: url(../img/button-submit.png) no-repeat; width: 139px; height: 45px; margin: 0 auto; border: 0; text-indent: -9999pt; position: absolute; right: 50px; bottom: 20px; }
+#winner-form #news, #winner-form #agree { margin: 8px 0 0 -70px;}
+
+#winner-form span { position: absolute; width: 250px; font-size: 0.8em; color: #ff0000; top: 20px; right: 50px; }
+.error { width: 100%; }
+
+#finalPage { display: none; position: absolute; top: 0; left: 0; }
+#finalPage .copy-box { position: absolute; top: 265px; left: 115px; width: 528px; height: 157px; background: url(../img/finalpage-copy.png) no-repeat; padding: 25px; }
+#finalPage h1 { text-align: center; color: #f0791a; padding: 5px 0 5px 0; text-shadow: 2px 2px 2px #c0c0c0; }
+#finalPage h2 { text-align: center; color: #f0791a; padding: 5px 0 10px 0; text-shadow: 2px 2px 2px #c0c0c0; font-size: 1.5em; }
+#finalPage p { font-size: 1.2em; }
+#finalPage .panels { position: absolute; top: 514px; left: 10px; overflow: auto; width: 809px; }
+#finalPage .panels .panel { width: 269px; height: 378px; background: url(../img/finalpage-panel.png) no-repeat; float: left; }
 
 @font-face {
 	font-family: 'GothamBook';

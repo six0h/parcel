@@ -1,88 +1,83 @@
 <?php
 
-require_once('mongo.class.php');
-
 class User {
 	
-	private	 	$user_id,
-			$first_name,
-			$email,
-			$admin;
+	protected	$fbid,
+				$first_name,
+				$last_name,
+				$email,
+				$gender,
+				$location,
+				$access_token,
+				$expires,
+				$db;
 
-	private function __constructor() {
-	
+	public function __constructor($db) {
+		$this->db = $db;
 	}
 
-	public static function find_by_email($id) {
-		global $db;
-
-		$record = $db->select('users', array('email' => $id));
-
-		foreach($record as $item) {
-			$objProp = array(
-				'user_id' => $item['_id'],
-				'first_name' => $item['first_name'],
-				'email' => $item['email'],
-				'admin' => $item['admin']);
-		}
-		$obj = self::instantiate($objProp);
-		
-		return $obj;
-	}
-	
-	public static function check_login($email = '',$password = '') {
-		global $db,$data;
-
-		$success = 1;
-		
-		if($email != '' && $password != '') {
-			$password = md5($password);
-			$crit = array(
-					'email' => $email,
-					'password' => $password,
-					'admin' => 1
-				);
-			$result = $db->count('users', $crit);	
-		
-			if($result == 1) {
-				$record = $db->select('users', $crit);
-
-				// CONVERT MONGO OBJECT TO ARRAY
-				foreach($record as $item) { 
-					$objProp = array(
-						'user_id' => $item['_id'],
-						'first_name' => $item['first_name'],
-						'email' => $item['email'],
-						'admin' => $item['admin']);
-				}
-
-				// INSTANTIATE USER OBJECT
-				$obj = self::instantiate($objProp);
-
-				return $obj;
-			} else {
-				return false;
-			}
-		} else {
-			return false;
-		}
-		
+	public function getFbId() {
+		return $this->fbid;
 	}
 
-	public function get_user_id() {
-		return $this->user_id;
+	public function setFbId($fbid) {
+		$this->fbid = $fbid;
 	}
 
-	public function get_first_name() {
+	public function getFirstName() {
 		return $this->first_name;
 	}
 
-	public function get_email() {
+	public function setFirstName($first_name) {
+		$this->first_name = $first_name;
+	}
+
+	public function getLastName() {
+		return $this->last_name;
+	}
+
+	public function setLastName($last_name) {
+		$this->last_name = $last_name;
+	}
+
+	public function getEmail() {
 		return $this->email;
 	}
 
-	public function is_admin() {
-		return $this->admin;
+	public function setEmail($email) {
+		$this->email = $email;
+	}
+
+	public function getGender() {
+		return $this->gender;
+	}
+
+	public function setGender($gender) {
+		$this->gender = $gender;
+	}
+
+	public function getLocation() {
+		return $this->location;
+	}
+
+	public function setLocation($location) {
+		$this->location = $location;
+	}
+
+	public function getAccessToken() {
+		return $this->access_token;
+	}
+
+	public function setAccessToken($access_token) {
+		$this->access_token = $access_token;
+	}
+
+	public function getExpires() {
+		return $this->expires;
+	}
+
+	public function setExpires($expires) {
+		$this->expires = $expires;
 	}
 
 	private function instantiate($record) {

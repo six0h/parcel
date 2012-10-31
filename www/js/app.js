@@ -12,7 +12,7 @@ $(function() { // ENCAPSULATE EVERYTHING IN JQUERY, EVEN FUNCTIONS
 
 /*///////////////////////////////////////////////
 /*///////////////////////////////////////////////
-// OK, LETS TAKE CARE OF GLOBAL STUFF FIRST
+// GLOBALS FIRST
 /*///////////////////////////////////////////////
 /*///////////////////////////////////////////////
 
@@ -22,9 +22,25 @@ $(function() { // ENCAPSULATE EVERYTHING IN JQUERY, EVEN FUNCTIONS
 		user_info = '',
 		user_id = '',
 		access_token = ''
-		animated = 0;
+		animated = 0,
+		played = 0;
 
 	var i = 1250;
+
+	$('#cheat').live('click', function() {
+
+		$.ajax({
+			type: 'POST',
+			dataType: 'json',
+			url: 'ajax/cleardata.php',
+			success: function(res) {
+				if(res.status == 200) {
+					alert('data cleared');
+				}
+			}
+		});
+
+	});
 
 
 /*///////////////////////////////////////////////
@@ -49,7 +65,8 @@ $(function() { // ENCAPSULATE EVERYTHING IN JQUERY, EVEN FUNCTIONS
 /*///////////////////////////////////////////////
 
 	function showEnter() {
-		$('#enter').animate({'top':'30px'}, 'easeOutQuad').animate({'top':'0px'});
+		$('#enter').css('opacity',0).show().animate({'top':'30px','opacity':0.75}, 'easeOutQuad').animate({'top':'0px','opacity':1},function() {
+		});
 	}
 
 	$('.auth').live('click', function() {
@@ -68,20 +85,126 @@ $(function() { // ENCAPSULATE EVERYTHING IN JQUERY, EVEN FUNCTIONS
 				console.log(res);
 			},
 			success: function(res) {
-				console.log(res);
 				if(res.status == 200) {
 					$('#enter').animate({'top':'+=20px','opacity':0.8}).animate({'top':'-300px','opacity':0});
+				} else if(res.status == 999) {
+					$('#enter').animate({'top':'+=20px','opacity':0.8}).animate({'top':'-300px','opacity':0}, function() {
+						$(this).hide().css('opacity',1);
+					});
+					$('#result h1').html('Congratulations!')
+					$('#result p').html("You've just opened the winning parcel. Now that's got to be a reason to Love Every Second of Sydney in Summer!<br/><br/>We just need a little information so we can send your prize to you.")
+									.css('font-size','1.1em');;
+					$('#result .button-small, #result #result-btn').hide();
+					$('#result').append('<a href="#" id="winEnter" class="button-link">Enter your info <span class="arrow">&gt;</a>');
+					$('#result .button-link').css('left','-=10px');
+					$('#first_name').val(user_info.first_name);
+					$('#last_name').val(user_info.last_name);
+					$('#email').val(user_info.email);
+					$('#location').val(user_info.location.name);
+					$('#fbid').val(user_info.id);
+					setTimeout(function() {
+						$('#result').css('opacity',0).show().animate({
+							'top': '0px',
+							'opacity': 1
+						}).find('p').css('opacity',1);
+					}, 1000);
+				} else if(res.status == 201) {
+					$('#enter').animate({'top':'+=20px','opacity':0.8}).animate({'top':'-300px','opacity':0});
+					$('#result .copy-box h1').html('Not this time!');
+					$('#result .copy-box p').html("Sorry that wasn't the lucky layer. But, if you want to have another go, just Pass the Parcel to a friend for the chance to open it again.");
+					if(res.num_plays == 2) {
+						$('#result h1').html("Still not the one. Better Luck Tomorrow.").css('font-size','1.2em');
+						$('#result .copy-box p').html("We've got more parcels with more great Sydney experiences every day. So, remember to come back tomorrow and have another go.<br/><br/>In the meantime, click find out more and discover what Sydney has to offer.").css('font-size','0.9em');
+						$('#result .button-small, #result #result-btn').hide();
+						$('#result').append('<a href="#" id="finalBtn" class="button-link">Continue <span class="arrow">&gt;</a>').css('margin-left');
+					}
+					setTimeout(function() {
+						$('#result').css('opacity',0).show().animate({
+								'top': '0px',
+								'opacity': 1
+						}).find('p').css('opacity',1);
+					}, 1000);
+				} else if(res.status == 203) {
+
+// WRITE CODE TO FORWARD TO THE FINAL PAGE HERE
+// USER HAS ALREADY PLAYED TWICE AND GOT THROUGH SOMEHOW
+
+
 				} else {
 					for(err in res.errors) {
-						
+						console.log(res);
 					}
 				}
 			}
 		});	
 	});
 
-	function showShare() {
+	// SHOW THE WINNER FORM
+	$('#winEnter').live('click', function() {
 
+		$('#result').animate({
+			'opacity':0,
+			'top':'-=10px'
+		}, function() {
+			$(this).hide();
+		});
+
+		$('#winner-form').show().animate({
+			'opacity':1,
+			'top':'-=10px'
+		});
+
+	});
+
+	// FUNCTION WRAPPER FOR FACEBOOK CODE
+	function appRequest(callback) {
+		FB.ui({
+			method: 'apprequests',
+			message: 'Unwrap the parcel and love every second of Sydney in Summer!',
+			title: 'Pass the Parcel'
+		}, callback)
+	}
+
+	// FACEBOOK SHARE W/ CALLBACK
+	$('#result-btn').click(function() {
+		appRequest(function(res) {
+			if(res != undefined) {
+				$.ajax({
+					type: 'POST',
+					dataType: 'json',
+					url: 'ajax/recordshare.php',
+					data: user_info,
+					success: function(response) {
+						console.log(response);
+						if(response.status == 200) {
+							$('#result').animate({
+								'top': '10px',
+								'opacity': 0
+							}).hide();
+						}
+						$('.canvas').animate({
+							'opacity': 0,
+							'visibility': 'hidden'
+						})
+						$('#thered').fadeIn();
+						registration();
+					},
+					error: function(response) {
+						console.log(response);
+						for(err in response.errors) {
+							console.log(err);
+						}
+					}
+				})
+			}
+		});
+	});
+
+	function showShare() {
+			$('#result').css('opacity', 0).show().animate({
+				'top': '0px',
+				'opacity': 1
+			});
 	}
 
 	function registration() {
@@ -92,7 +215,6 @@ $(function() { // ENCAPSULATE EVERYTHING IN JQUERY, EVEN FUNCTIONS
 			url: 'ajax/register.php',
 			data: user_info,
 			success: function(response) {
-				console.log(response);
 				user_info.access_token = response.access_token;
 				user_info.expiry = response.expiry;
 				user_info.salt = response.salt;
@@ -104,8 +226,16 @@ $(function() { // ENCAPSULATE EVERYTHING IN JQUERY, EVEN FUNCTIONS
 					if(animated == 0) {
 						showEnter();
 					}
+					$('#fbid').val(user_info.id);
 				} else if (response.status == 201) {
-					showShare();							
+					showShare();					
+				} else if (response.status == 202) {
+					$('#enter .copy-box h1').html(user_info.first_name + ', Open the parcel one more time for your chance to Love Every Second of Sydney in Summer');
+					$('#thered').fadeIn();
+					$('#auth-btn').html('Open the Parcel <span class="arrow">&gt;</span>').fadeIn();
+					showEnter();
+				} else if (response.status == 203) {
+					finalPage();
 				}
 			},
 			error: function(response) {
@@ -114,6 +244,98 @@ $(function() { // ENCAPSULATE EVERYTHING IN JQUERY, EVEN FUNCTIONS
 		});
 
 	}
+
+	// VALIDATOR OPTIONS
+	var validOptions = {
+               
+	        rules: {
+                    first_name: "required",
+                    last_name: "required",
+                    email: {
+                            required: true,
+                            email: true
+                    },
+                    location: "required",
+                    postal: "required",
+					agree: "required"
+                },
+
+            messages: {
+                    first_name: "Please provide your first name.",
+                    last_name: "Please provide your last name.",
+                    email: {
+                            required: "Please provide your email address.",
+                            email: "Please provide a valid email address."
+	                },
+	                location: "Please tell us what city you're in.",
+	                postal: "Please provide your postal code.",
+					agree: "Please agree to the terms and conditions."
+                },
+
+		errorPlacement: function(error, element) {
+			error.appendTo( element.parent('li') );
+		},
+		wrapper: 'span',
+		onkeyup: false, // DO NOT VALIDATE ON KEYUP, WAIT UNTIL BLUR
+
+		// IF VALIDATE IS SUCCESSFUL, SUBMIT THE FORM WITH JQUERY FORM
+		submitHandler: function(form) {
+			// HIJACK DOS FORM AND SUBMIT THROUGH AJAX
+			$(form).ajaxSubmit({
+				dataType: 'json',
+				success: function(res) {
+					console.log(res);
+					if(res.status == 200) {
+						$('#winner-form').animate({'top':'+=20px','opacity':0}, function() {
+							$(this).hide();
+						});
+						finalPage();
+					} else if (res.status == 500) {
+						console.log(error);
+						alert("There was a server error. Please try again.");
+					} else {
+						for(err in res.errors) console.log(err);
+					}
+				},
+
+				error: function(res) {
+					alert('error');
+				}
+			});
+		}
+
+	};
+
+	$('#winner-form form').validate(validOptions);
+
+	$('#finalBtn').live('click', function() {
+		$('#result').fadeOut();
+		finalPage();
+	});
+
+	$('.button-small').live('click', function() {
+		finalPage();
+	});
+
+	function finalPage(state) {
+		$('#result').css('display','none');
+		$('.canvas').css('visibility','hidden');
+		$('#finalpage').fadeIn();
+
+		if(state != 'win') {
+			$('#finalPage h1').html('Discover the vibrancy of Sydney');
+			$('#finalPage h2').css('display','none');
+			$('#finalPage p').html('See Sydney shine in summer with its spectacular line up of events, relaxed outdoor and beach lifestyle and dazzling display of nature and parks. Visit <a href="http://www.sydney.com/" target="_blank">Sydney.com</a> to start planning your next trip.')
+			$('#finalPage').fadeIn();
+		} else {
+			$('#finalPage h1').html('Congratulations.');
+			$('#finalPage h2').css('display','block').html("We'll contact you shortly with your prize details.");
+			$('#finalPage p').html('See Sydney shine in summer with its spectacular line up of events, relaxed outdoor and beach lifestyle and dazzling display of nature and parks. Visit <a href="http://www.sydney.com/" target="_blank">Sydney.com</a> to start planning your next trip.')
+			$('#finalPage').fadeIn();
+		}
+	}
+
+
 /*///////////////////////////////////////////////
 /*
 /* Initialize Facebook 
