@@ -81,7 +81,7 @@ foreach($todays_time as $time) {
 		if($_POST['salt'] == $key) $matched_key = 1;
 
 		// IF THE USERS KEY IS TODAYS WINNING KEY
-		if($matched_key == 1) {
+		if(isset($matched_key) && $matched_key == 1) {
 			// ADD THE USER TO THE WINNERS COLLECTION
 			try { 
 				$db->insert('winners',array('campaign_id' => $_id, 'key'=>$key, 'fbid'=>$_POST['id']));

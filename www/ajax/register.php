@@ -80,7 +80,6 @@ if($exists == 0) {
 		exit();
 	}
 
-	$now = date('U'); // TODAYS DATE
 	$today = new MongoDate(strtotime('today')); // TIMESTAMP FOR BEGINNING OF TODAY
 	$tomorrow = new MongoDate(strtotime('tomorrow')); // TIMESTAMP FOR BEGINNING OF TOMORROW
 
@@ -125,12 +124,13 @@ if($exists == 0) {
 	$now = new MongoDate();
 	$tomorrow = new MongoDate(strtotime('tomorrow'));
 
-	$time_check = $db->select('campaigns', array('date' => array('$gte' => $today), 'date' => array('$lt' => $tomorrow)));
+	$time_check = $db->select('campaigns', array('date' => array('$gte' => $today,'$lt'=>$tomorrow)));
 
 	foreach($time_check as $time) {
+
 		$todays_time = $time['date']->sec;
 
-		if(isset($time['last_claim']->sec)) {
+		if($time['last_claim']->sec > 0) {
 			$last_claim = $time['last_claim']->sec;
 		} else {
 			$last_claim = 0;
@@ -139,11 +139,11 @@ if($exists == 0) {
 		$todays_key = $time['key'];
 		if(isset($time['winner'])) $winner = $time['winner'];
 		$_id = $time['_id'];
+
 	}
 
 	if($todays_time < $now->sec) {
-
-		$claim_expiry = strtotime('- 5 minutes');
+		$claim_expiry = new MongoDate(strtotime('- 5 minutes'));
 		if($last_claim < $claim_expiry) {
 			if(!isset($winner)) {
 				$salt = $todays_key;

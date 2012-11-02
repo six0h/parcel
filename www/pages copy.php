@@ -1,10 +1,3 @@
-<div id="photos">
-	<img src="img/photos/img1.png" alt="image 1" id="img1" />
-	<img src="img/photos/img2.png" alt="image 2" id="img2" />
-	<img src="img/photos/img3.png" alt="image 3" id="img3" />
-	<img src="img/photos/img4.png" alt="image 4" id="img4" />
-</div>
-
 
 <div id="enter">
 	
@@ -62,13 +55,13 @@
 
 	<div class="panels">
 		<div class="panel1">
-			<a href="http://www.sydney.com/destinations/sydney/sydney-in-summer/love-every-second-of-sydney?utm_source=facebook&utm_medium=app&utm_campaign=cmp-sydney-summer" target="_blank">Find out More ></a>
+			<a href="#" target="_blank">Find out More ></a>
 		</div>
 		<div class="panel2">
-			<a href="http://www.sydney.com/deals/summer?utm_source=facebook&utm_medium=app&utm_campaign=cmp-sydney-summer" target="_blank">Find out More ></a>
+			<a href="#" target="_blank">Find out More ></a>
 		</div>
 		<div class="panel3">
-			<a href="http://www.sydney.com/events?utm_source=facebook&utm_medium=app&utm_campaign=cmp-sydney-summer" target="_blank">Find out More ></a>
+			<a href="#" target="_blank">Find out More ></a>
 		</div>
 		<br class="clear" />
 	</div>

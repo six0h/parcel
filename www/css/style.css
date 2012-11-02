@@ -13,17 +13,21 @@ a:active { outline: none; }
 .button-half { position: absolute; display: block; width: 160px; height: 45px; background: url(../img/button-half.png) no-repeat; }
 .button-small { position: absolute; display: block; width: 100px; height: 35px; background: url(../img/button-small.png) no-repeat; }
 
-#cheat { display: block; color: #000; position: absolute; top: 10px; left: 30px; }
-
 #page-wrapper { position: relative; background: url(../img/bg.jpg) no-repeat; width: 809px; height: 988px; overflow: hidden; margin: 0 auto; }
 
-#thedark { width: 809px; height: 988px; background: #000; opacity: 0; }
+#thedark { width: 809px; height: 988px; background: #000; opacity: 0; display: none; }
 #thered { display: none; position: absolute; top: 0; left: 0; background: url(../img/bg-redparcel.jpg) no-repeat; width: 809px; height: 988px; }
 #finalpage { display: none; position: absolute; top: 0; left: 0; background: url(../img/bg-finalpage.jpg) no-repeat; width: 809px; height: 988px; }
 
-#title { position: absolute; width: 519px; height: 86px; background: url(../img/passtheparcel.png) no-repeat; top: -900px; left: 150px; }
+#title { z-index: 999; position: absolute; width: 519px; height: 86px; background: url(../img/passtheparcel.png) no-repeat; top: -900px; left: 150px; }
 #love-logo { position: absolute; top: 40px; left: -500px; width: 195px; height: 40px; background: url(../img/loveeverysecond.png) no-repeat; }
 #sydney-logo { position: absolute; top: 40px; right: -500px; width: 167px; height: 49px; background: url(../img/sydneylogo.png) no-repeat; }
+
+.copy-box a { color: #f48029; z-index: 999; }
+.copy-box p { z-index: 999; }
+
+#result, .copy-box, p, a, .prize-box, #winner-form { z-index: 998; }
+input { z-index: 999; }
 
 #like-gate { position: absolute; left: 809px; top: 0; }
 #like-gate .copy-box { position: absolute; left: 120px; top: 240px; width: 538px; height: 324px; background: url(../img/like-gate/copypanel.png) no-repeat; padding: 20px; }
@@ -33,17 +37,17 @@ a:active { outline: none; }
 #enter { position: absolute; top: -900px; }
 #enter .copy-box { position: absolute; top: 330px; left: 120px; width: 578px; height: 197px; background: url(../img/enter/copy-panel.png) no-repeat; }
 #enter .copy-box h1 { position: absolute; bottom: 55px; left: 30px; text-align: center; width: 518px; font-size: 1.4em; letter-spacing: 0px; color: #333; text-shadow: 2px 2px 2px #c0c0c0; opacity: 0.99; }
-.button-link { top: 495px; left: 300px; text-decoration: none; color: #fff; text-align: center; font-size: 1.4em; padding: 10px 0 0 0; text-shadow: 1px 1px 3px #000; }
+.button-link { z-index: 999; top: 495px; left: 300px; text-decoration: none; color: #fff; text-align: center; font-size: 1.4em; padding: 10px 0 0 0; text-shadow: 1px 1px 3px #000; }
 .button-link .arrow { color: #ffe7d0; font-size: 0.7em; padding-bottom: 3px; }
 #enter .prize-box { top: 230px; left: 150px; }
 
-#result { position: absolute; top: 10px; display: none; }
+#result { z-index: 999; position: absolute; top: 10px; display: none; }
 #result .copy-box { position: absolute; width: 288px; height: 147px; background: url(../img/results/copy-panel.png) no-repeat; padding: 20px; top: 345px; left: 245px; }
 #result .copy-box h1 { width: 288px; text-align: center; font-weight: bold; font-size: 1.6em; color: #f0791a; padding: 5px 0 10px 0; text-shadow: 2px 2px 2px #c0c0c0; }
 #result .copy-box p { width: 288px; font-size: 1.25em; text-align: center; color: #333; text-shadow: 2px 2px 2px #c0c0c0; }
 
-#result .button-half { top: 500px; left: 287px; padding: 10px 0 0 18px; font-size: 1.4em; color: #fff; text-shadow: 2px 2px 3px #c0c0c0; text-decoration: none; font-weight: bold; }
-#result .button-small { top: 505px; left: 432px; padding: 8px 0 0 25px; font-size: 1em; color: #fff; text-shadow: 2px 2px 3px #c0c0c0; text-decoration: none; font-weight: bold; }
+#result .button-half { z-index: 999; top: 500px; left: 287px; padding: 10px 0 0 18px; font-size: 1.4em; color: #fff; text-shadow: 2px 2px 3px #c0c0c0; text-decoration: none; font-weight: bold; }
+#result .button-small { z-index: 999; top: 505px; left: 432px; padding: 8px 0 0 25px; font-size: 1em; color: #fff; text-shadow: 2px 2px 3px #c0c0c0; text-decoration: none; font-weight: bold; }
 
 #winner-form { display: none; position: absolute; top: 235px; left: 130px; width: 508px; height: 397px; background: url(../img/form-bg.png) no-repeat; z-index: 1; padding: 25px; opacity: 0; }
 #winner-form h1 { font-size: 1.5em; font-weight: bold; text-align: center;  color: #000; padding: 5px 0 10px 0; text-shadow: 2px 2px 2px #c0c0c0; }
@@ -51,6 +55,7 @@ a:active { outline: none; }
 #winner-form li { position: relative; margin-bottom: 15px; }
 #winner-form li label { width: 250px; text-align: right; float: left; display: block; padding-top: 5px; margin-right: 5px; }
 #winner-form li input { width: 200px; padding: 2px; }
+input.checks { width: 10px; height: 10px; }
 #winner-form #submit { background: url(../img/button-submit.png) no-repeat; width: 139px; height: 45px; margin: 0 auto; border: 0; text-indent: -9999pt; position: absolute; right: 50px; bottom: 20px; }
 #winner-form #news, #winner-form #agree { margin: 8px 0 0 -70px;}
 
@@ -61,10 +66,15 @@ a:active { outline: none; }
 #finalPage .copy-box { position: absolute; top: 265px; left: 115px; width: 528px; height: 157px; background: url(../img/finalpage-copy.png) no-repeat; padding: 25px; }
 #finalPage h1 { text-align: center; color: #f0791a; padding: 5px 0 5px 0; text-shadow: 2px 2px 2px #c0c0c0; }
 #finalPage h2 { text-align: center; color: #f0791a; padding: 5px 0 10px 0; text-shadow: 2px 2px 2px #c0c0c0; font-size: 1.5em; }
-#finalPage p { font-size: 1.2em; }
+#finalPage p { font-size: 1.2em; line-height: 20px; text-shadow: 2px 2px 2px #c0c0c0; }
 #finalPage .panels { position: absolute; top: 514px; left: 10px; overflow: auto; width: 809px; }
-#finalPage .panels .panel { width: 269px; height: 378px; background: url(../img/finalpage-panel.png) no-repeat; float: left; }
+#finalPage .panels .panel1 { width: 269px; height: 378px; background: url(../img/panels/lovesydney.png) no-repeat; float: left; }
+#finalPage .panels .panel2 { width: 269px; height: 378px; background: url(../img/panels/discover.png) no-repeat; float: left; }
+#finalPage .panels .panel3 { width: 269px; height: 378px; background: url(../img/panels/events.png) no-repeat; float: left; }
+#finalPage .panels div { position: relative; z-index: 999; }
+#finalPage .panels div a { display: block; position: absolute; bottom: 30px; left: 25px; width: 135px; height: 25px; border: 0; text-indent:-9999pt; z-index: 999;}
 
+#photos img { display: none; }
 @font-face {
 	font-family: 'GothamBook';
 	src: url('../fonts/gotham-book.eot');

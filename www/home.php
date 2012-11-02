@@ -46,17 +46,22 @@ $liked = $sr['page']['liked'];
 	<link rel="stylesheet" type="text/css" href="css/style.css?date=<?php $date; ?>" />
 	<link rel="stylesheet" type="text/css" href="css/fonts.css" />
 	<link rel="stylesheet" type="text/css" href="css/jquery.fancybox.css" />
-	<script type="text/javascript" src="js/jquery.js"></script>
-	<script type="text/javascript" src="js/jquery-ui.js"></script>
-	<script type="text/javascript" src="js/jquery-form.js"></script>
-	<script type="text/javascript" src="js/jquery-validate.js"></script>
-	<script type="text/javascript" src="js/jquery-fancybox.js"></script>
-	<script type="text/javascript" src="js/modernizr.js"></script>
-	<script type="text/javascript" src="js/app.js?date=<?php $date; ?>"></script>
-	<script type="text/javascript" src="js/app-config.js?date=<?php $date; ?>"></script>
-	<?php if($liked != 1) { ?>
-		<script type="text/javascript" src="js/like.js?date=<?php $date; ?>"></script>
-	<? } ?>
+
+	<script src="js/html5shiv.js"></script>
+	<script src="js/jquery.js"></script>
+	<script src="js/jquery-ui.js"></script>
+	<script src="js/jquery-form.js"></script>
+	<script src="js/jquery-validate.js"></script>
+	<script src="js/jquery-fancybox.js"></script>
+	<script src="js/modernizr.js"></script>
+
+<script>
+Modernizr.load({
+	test: Modernizr.canvas,
+	yep: 'js/app.js',
+	nope: 'js/app-ie.js'
+});
+</script>
 
 </head>
 
@@ -64,6 +69,7 @@ $liked = $sr['page']['liked'];
 
 <div id="fb-root"></div>
 
+<div id="canvas" width="809" height="988"></div>
 <div id="page-wrapper">
 
 	<div id="thedark"></div>
@@ -80,8 +86,20 @@ $liked = $sr['page']['liked'];
 	require_once('like-gate.php');
 } ?>
 
-<a href="#" id="cheat">Cheater!</a>
+
 </div>
+
+<script src="js/easeljs-0.5.0.min.js"></script>
+<script src="js/tweenjs-0.3.0.min.js"></script>
+<script src="js/movieclip-0.5.0.min.js"></script>
+<script src="js/preloadjs-0.2.0.min.js"></script>
+<script src="js/parcel.js"></script>
+<script src="js/sydneypl.js"></script>
+<script src="js/app-config.js?date=<?php $date; ?>"></script>
+<script src="js/app.js?date=<?php $date; ?>"></script>
+<?php if($liked != 1) { ?>
+	<script type="text/javascript" src="js/like.js?date=<?php $date; ?>"></script>
+<? } ?>
 
 <script type="text/javascript">
 

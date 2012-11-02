@@ -7,9 +7,35 @@
 /* DO NOT EDIT THIS DOCUMENT OR ANY FILES RELATED TO THE PARENT PROJECT WITHOUT PERMISSION OF THE AUTHOR.
 /*
 /*///////////////*/
+var imgLoaded = 0,date = new Date();
+
+init();
 
 $(function() { // ENCAPSULATE EVERYTHING IN JQUERY, EVEN FUNCTIONS
 
+function preloader() {
+
+	var i = 0;
+
+	imageObj = new Image();
+
+	images = [
+		'img/photos/img1.png',
+		'img/photos/img2.png',
+		'img/photos/img3.png',
+		'img/photos/img4.png',
+		'img/panels/discover.png',
+		'img/panels/events.png',
+		'img/panels/lovesydney.png'
+	];
+
+	for(i=0;i<images.length;i++) {
+		imageObj.src=images[i];
+	}
+
+}
+
+preloader();
 /*///////////////////////////////////////////////
 /*///////////////////////////////////////////////
 // GLOBALS FIRST
@@ -19,29 +45,16 @@ $(function() { // ENCAPSULATE EVERYTHING IN JQUERY, EVEN FUNCTIONS
 
 // DEFINE GLOBALS
 	var	pages = $('#page-wrapper>div'),
+		page_tab = 'https://apps3.ionflo.com/passtheparcel/www/home.php',
+		channel = '//apps3.ionflo.com/passtheparcel/www/channel.html',
+		app_id = '498809820144045',
 		user_info = '',
 		user_id = '',
-		access_token = ''
+		access_token = '',
 		animated = 0,
 		played = 0;
 
 	var i = 1250;
-
-	$('#cheat').live('click', function() {
-
-		$.ajax({
-			type: 'POST',
-			dataType: 'json',
-			url: 'ajax/cleardata.php',
-			success: function(res) {
-				if(res.status == 200) {
-					alert('data cleared');
-				}
-			}
-		});
-
-	});
-
 
 /*///////////////////////////////////////////////
 /*
@@ -65,8 +78,7 @@ $(function() { // ENCAPSULATE EVERYTHING IN JQUERY, EVEN FUNCTIONS
 /*///////////////////////////////////////////////
 
 	function showEnter() {
-		$('#enter').css('opacity',0).show().animate({'top':'30px','opacity':0.75}, 'easeOutQuad').animate({'top':'0px','opacity':1},function() {
-		});
+		$('#enter').css('opacity',0).show().animate({'top':'30px','opacity':0.75}, 'easeOutQuad').animate({'top':'0px','opacity':1,'display':'block'});
 	}
 
 	$('.auth').live('click', function() {
@@ -85,6 +97,7 @@ $(function() { // ENCAPSULATE EVERYTHING IN JQUERY, EVEN FUNCTIONS
 				console.log(res);
 			},
 			success: function(res) {
+				console.log(res);
 				if(res.status == 200) {
 					$('#enter').animate({'top':'+=20px','opacity':0.8}).animate({'top':'-300px','opacity':0});
 				} else if(res.status == 999) {
@@ -103,11 +116,14 @@ $(function() { // ENCAPSULATE EVERYTHING IN JQUERY, EVEN FUNCTIONS
 					$('#location').val(user_info.location.name);
 					$('#fbid').val(user_info.id);
 					setTimeout(function() {
+						fireAnim();
+					}, 1000);
+					setTimeout(function() {
 						$('#result').css('opacity',0).show().animate({
 							'top': '0px',
 							'opacity': 1
 						}).find('p').css('opacity',1);
-					}, 1000);
+					}, 3000);
 				} else if(res.status == 201) {
 					$('#enter').animate({'top':'+=20px','opacity':0.8}).animate({'top':'-300px','opacity':0});
 					$('#result .copy-box h1').html('Not this time!');
@@ -124,8 +140,11 @@ $(function() { // ENCAPSULATE EVERYTHING IN JQUERY, EVEN FUNCTIONS
 								'opacity': 1
 						}).find('p').css('opacity',1);
 					}, 1000);
+					setTimeout(function() {
+						fireAnim();
+					}, 3000);
 				} else if(res.status == 203) {
-
+					finalPage();
 // WRITE CODE TO FORWARD TO THE FINAL PAGE HERE
 // USER HAS ALREADY PLAYED TWICE AND GOT THROUGH SOMEHOW
 
@@ -141,6 +160,10 @@ $(function() { // ENCAPSULATE EVERYTHING IN JQUERY, EVEN FUNCTIONS
 
 	// SHOW THE WINNER FORM
 	$('#winEnter').live('click', function() {
+
+		$('#canvas').animate({'opacity':0}, function() {
+			$(this).hide();
+		});
 
 		$('#result').animate({
 			'opacity':0,
@@ -182,7 +205,7 @@ $(function() { // ENCAPSULATE EVERYTHING IN JQUERY, EVEN FUNCTIONS
 								'opacity': 0
 							}).hide();
 						}
-						$('.canvas').animate({
+						$('#canvas').animate({
 							'opacity': 0,
 							'visibility': 'hidden'
 						})
@@ -200,6 +223,7 @@ $(function() { // ENCAPSULATE EVERYTHING IN JQUERY, EVEN FUNCTIONS
 		});
 	});
 
+	// SHOW SHARING BOX
 	function showShare() {
 			$('#result').css('opacity', 0).show().animate({
 				'top': '0px',
@@ -207,6 +231,7 @@ $(function() { // ENCAPSULATE EVERYTHING IN JQUERY, EVEN FUNCTIONS
 			});
 	}
 
+	// REGISTER USER
 	function registration() {
 
 		$.ajax({
@@ -215,6 +240,7 @@ $(function() { // ENCAPSULATE EVERYTHING IN JQUERY, EVEN FUNCTIONS
 			url: 'ajax/register.php',
 			data: user_info,
 			success: function(response) {
+				console.log(response);
 				user_info.access_token = response.access_token;
 				user_info.expiry = response.expiry;
 				user_info.salt = response.salt;
@@ -222,17 +248,19 @@ $(function() { // ENCAPSULATE EVERYTHING IN JQUERY, EVEN FUNCTIONS
 					$('#auth-btn')
 						.html('Open the Parcel <span class="arrow">&gt;</span>')
 						.fadeIn();
-					$('#enter .copy-box h1').html(user_info.first_name + ', Open the parcel for your chance to Love Every Second of Sydney In Summer');
-					if(animated == 0) {
-						showEnter();
-					}
+					$('#enter .copy-box h1').html(user_info.first_name + ', open the parcel for your chance to Love Every Second of Sydney In Summer');
+					showEnter();
 					$('#fbid').val(user_info.id);
 				} else if (response.status == 201) {
-					showShare();					
+					setTimeout(function() {
+						showShare();
+						fireAnim();
+					}, 1000);
 				} else if (response.status == 202) {
-					$('#enter .copy-box h1').html(user_info.first_name + ', Open the parcel one more time for your chance to Love Every Second of Sydney in Summer');
+					$('#enter .copy-box h1').html(user_info.first_name + ', open the parcel one more time for your chance to Love Every Second of Sydney in Summer');
 					$('#thered').fadeIn();
 					$('#auth-btn').html('Open the Parcel <span class="arrow">&gt;</span>').fadeIn();
+					played = 1;
 					showEnter();
 				} else if (response.status == 203) {
 					finalPage();
@@ -289,7 +317,7 @@ $(function() { // ENCAPSULATE EVERYTHING IN JQUERY, EVEN FUNCTIONS
 						$('#winner-form').animate({'top':'+=20px','opacity':0}, function() {
 							$(this).hide();
 						});
-						finalPage();
+						finalPage('win');
 					} else if (res.status == 500) {
 						console.log(error);
 						alert("There was a server error. Please try again.");
@@ -319,21 +347,53 @@ $(function() { // ENCAPSULATE EVERYTHING IN JQUERY, EVEN FUNCTIONS
 
 	function finalPage(state) {
 		$('#result').css('display','none');
-		$('.canvas').css('visibility','hidden');
+		$('#canvas').css('opacity',0);
 		$('#finalpage').fadeIn();
 
 		if(state != 'win') {
-			$('#finalPage h1').html('Discover the vibrancy of Sydney');
+			$('#finalPage h1')
+				.css({'margin-top':'15px','margin-bottom':'20px'})
+				.html('Discover the vibrancy of Sydney');
 			$('#finalPage h2').css('display','none');
-			$('#finalPage p').html('See Sydney shine in summer with its spectacular line up of events, relaxed outdoor and beach lifestyle and dazzling display of nature and parks. Visit <a href="http://www.sydney.com/" target="_blank">Sydney.com</a> to start planning your next trip.')
+			$('#finalPage p').css({'font-size':'1em','padding': '0 20px'}).html('See Sydney shine in summer with its spectacular line up of events, relaxed outdoor and beach lifestyle and dazzling display of nature and parks. Visit <a href="http://www.sydney.com/" target="_blank">sydney.com</a> to start planning your next trip.')
 			$('#finalPage').fadeIn();
 		} else {
-			$('#finalPage h1').html('Congratulations.');
-			$('#finalPage h2').css('display','block').html("We'll contact you shortly with your prize details.");
-			$('#finalPage p').html('See Sydney shine in summer with its spectacular line up of events, relaxed outdoor and beach lifestyle and dazzling display of nature and parks. Visit <a href="http://www.sydney.com/" target="_blank">Sydney.com</a> to start planning your next trip.')
+			$('#finalPage h1')
+				.css({'margin-top':'10px','margin-bottom':'5px'})
+				.html('Congratulations.');
+			$('#finalPage h2').css({'display':'block','font-size':'1.1em'}).html("We'll contact you shortly with your prize details.");
+			$('#finalPage p')
+				.css({'font-size':'1em','padding': '0 20px'})
+				.html('See Sydney shine in summer with its spectacular line up of events, relaxed outdoor and beach lifestyle and dazzling display of nature and parks. Visit <a href="http://www.sydney.com/" target="_blank">sydney.com</a> to start planning your next trip.')
 			$('#finalPage').fadeIn();
 		}
 	}
+
+//	var fireAnim = function() {
+//		this.winner = function() {
+//			$('#img1,#img2,#img3,#img4').css({'top':'500px','left':'304px','display':'none'}).parent('#photos').show();
+//			$('#img1').animate({'left':'44px','top':'330px'});
+//			$('#img2').animate({'left':'210px','top':'230px'});
+//			$('#img3').animate({'left':'410px','top':'234px'});
+//			$('#img4').animate({'left':'530px','top':'327px'});
+//		}
+//
+//		this.loser = function() {
+//			$('#img1').css({'top':'330px','left':'-400px'});
+//			$('#img2').css({'top':'230px','left':'-400px'})
+//			$('#img3').css({'top':'234px','left':'-400px'})
+//			$('#img4').css({'top':'327px','left':'-400px'})
+//			$('#photos').show();
+//			$('#img1').animate({'left':'44px','top':'330px'});
+//			$('#img2').animate({'left':'210px','top':'230px'});
+//			$('#img3').animate({'left':'410px','top':'234px'});
+//			$('#img4').animate({'left':'530px','top':'327px'});
+//		}
+//
+//		this.hide = function() {
+//			$('#photos').fadeOut();
+//		}
+//	};
 
 
 /*///////////////////////////////////////////////

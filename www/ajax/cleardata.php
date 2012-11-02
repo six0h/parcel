@@ -17,9 +17,23 @@ $update = array(
 	'$unset'=>array(
 		'winner'=>1));
 
-$db->update('campaigns',$crit,$update);
-$db->remove('plays',array());
-$db->remove('winners',array());
+try {
+	$db->update('campaigns',array(),$update,array('multiple'=>true));
+} catch (Exception $e) {
+	echo "<br />".$e->getMessage();
+}
+
+try {
+	$db->remove('plays',array());
+} catch (Exception $e) {
+	echo "<br />".$e->getMessage();
+}
+
+try {
+	$db->remove('winners',array());
+} catch (Exception $e) {
+	echo "<br />".$e->getMessage();
+}
 
 echo json_encode(array('status'=>200));
 ?>

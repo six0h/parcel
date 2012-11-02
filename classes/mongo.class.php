@@ -35,8 +35,8 @@ class Db {
 		$this->db->$collection->insert($data);
 	}
 
-	public function update($collection,$crit,$data) {
-		$this->db->$collection->update($crit,$data);
+	public function update($collection,$crit,$data,$options = array()) {
+		$this->db->$collection->update($crit,$data,$options);
 	}
 
 	public function remove($collection,Array $crit) {
