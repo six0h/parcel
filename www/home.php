@@ -1,9 +1,7 @@
 <?php
-
 require_once('../config.php');
 require_once( BASE_PATH . 'functions.php');
 require_once( BASE_PATH . 'sdk/facebook-sdk/facebook.php');
-
 date_default_timezone_set('Australia/Sydney');
 
 $banned = check_bans();
@@ -98,7 +96,7 @@ Modernizr.load({
 <script src="js/app-config.js?date=<?php $date; ?>"></script>
 <script src="js/app.js?date=<?php $date; ?>"></script>
 <?php if($liked != 1) { ?>
-	<script type="text/javascript" src="js/like.js?date=<?php $date; ?>"></script>
+	<script type="text/javascript" src="js/like.js?date=<?php echo $date; ?>"></script>
 <? } ?>
 
 <script type="text/javascript">
@@ -118,3 +116,4 @@ Modernizr.load({
 
 </body>
 </html>
+

@@ -79,6 +79,12 @@ switch($p) {
 
 	break;
 
+	case 'campaigns':
+
+		require_once('campaigns.php');
+
+	break;
+
 	default:
 		require_once('users.php');
 }

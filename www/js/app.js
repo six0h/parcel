@@ -26,7 +26,13 @@ function preloader() {
 		'img/photos/img4.png',
 		'img/panels/discover.png',
 		'img/panels/events.png',
-		'img/panels/lovesydney.png'
+		'img/panels/lovesydney.png',
+		'img/button.png',
+		'img/button-half.png',
+		'img/button-small.png',
+		'img/button-submit.png',
+		'img/finalpage-copy.png',
+		'img/form-bg.png'
 	];
 
 	for(i=0;i<images.length;i++) {
@@ -45,8 +51,8 @@ preloader();
 
 // DEFINE GLOBALS
 	var	pages = $('#page-wrapper>div'),
-		page_tab = 'https://apps3.ionflo.com/passtheparcel/www/home.php',
-		channel = '//apps3.ionflo.com/passtheparcel/www/channel.html',
+		page_tab = 'https://aus.ionflo.com/nsw/www/home.php',
+		channel = '//aus.ionflo.com/nsw/www/channel.html',
 		app_id = '498809820144045',
 		user_info = '',
 		user_id = '',
