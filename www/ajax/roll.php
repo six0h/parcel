@@ -84,7 +84,7 @@ foreach($todays_time as $time) {
 		if(isset($matched_key) && $matched_key == 1) {
 			// ADD THE USER TO THE WINNERS COLLECTION
 			try { 
-				$db->insert('winners',array('campaign_id' => $_id, 'key'=>$key, 'fbid'=>$_POST['id']));
+				$db->insert('winners',array('campaign_id' => $_id, 'key'=>$key, 'fbid'=>$_POST['id'], 'win_time'=>$now));
 			} catch (Exception $e) {
 				$status = 500;
 				$errors[] = $e->getMessage();
@@ -94,7 +94,18 @@ foreach($todays_time as $time) {
 			}
 
 			try {
-				$db->update('campaigns',array('_id'=>$_id),array('$set'=>array('winner'=>$_POST['id'])));
+				$db->update('users',array('fbid'=>$_POST['id']),array('$inc'=>array('wins'=>1)));
+			} catch (Exception $e) {
+				$status = 204;
+				$errors[] = $e->getMessage();
+				$response = array('status'=>$status,'errors'=>$errors);
+				echo json_encode($response);
+				exit();
+
+			}
+
+			try {
+				$db->update('campaigns',array('_id'=>$_id),array('$set'=>array('winner'=>$_POST['id'],'win_time'=>$now)));
 			} catch (Exception $e) {
 				$status = 201;
 				$errors[] = $e->getMessage();

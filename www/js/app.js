@@ -7,41 +7,14 @@
 /* DO NOT EDIT THIS DOCUMENT OR ANY FILES RELATED TO THE PARENT PROJECT WITHOUT PERMISSION OF THE AUTHOR.
 /*
 /*///////////////*/
-var imgLoaded = 0,date = new Date();
-
-init();
+var 	imgLoaded = 0,
+	mydate = new Date().getTime(),
+	spriteBox = document.getElementById('spriteBox'),
+	s = spriteBox.style,
+	img;
 
 $(function() { // ENCAPSULATE EVERYTHING IN JQUERY, EVEN FUNCTIONS
 
-function preloader() {
-
-	var i = 0;
-
-	imageObj = new Image();
-
-	images = [
-		'img/photos/img1.png',
-		'img/photos/img2.png',
-		'img/photos/img3.png',
-		'img/photos/img4.png',
-		'img/panels/discover.png',
-		'img/panels/events.png',
-		'img/panels/lovesydney.png',
-		'img/button.png',
-		'img/button-half.png',
-		'img/button-small.png',
-		'img/button-submit.png',
-		'img/finalpage-copy.png',
-		'img/form-bg.png'
-	];
-
-	for(i=0;i<images.length;i++) {
-		imageObj.src=images[i];
-	}
-
-}
-
-preloader();
 /*///////////////////////////////////////////////
 /*///////////////////////////////////////////////
 // GLOBALS FIRST
@@ -61,6 +34,53 @@ preloader();
 		played = 0;
 
 	var i = 1250;
+
+	function preloader() {
+
+		var i = 0;
+
+		imageObj = new Image();
+
+		images = [
+			'img/photos/img1.png',
+			'img/photos/img2.png',
+			'img/photos/img3.png',
+			'img/photos/img4.png',
+			'img/panels/discover.png',
+			'img/panels/events.png',
+			'img/panels/lovesydney.png',
+			'img/button.png',
+			'img/button-half.png',
+			'img/button-small.png',
+			'img/button-submit.png',
+			'img/finalpage-copy.png',
+			'img/form-bg.png',
+			'img/results/copy-panel.png',
+			'img/enter/copy-panel.png'
+		];
+
+		for(i=0;i<images.length;i++) {
+			imageObj.src=images[i];
+			if(i==images.length) {
+				imgLoaded = 1;
+			}
+		}
+
+	}
+
+	preloader();
+
+	img = new Image();
+	img.src = "img/blue.png";
+	img.onload = function() {
+		$('#loading').fadeOut();
+		$('.button-link').show();
+		$('#spriteBox').css({
+			'background-image':"url("+img.src+")",
+			"background-position":"-2px -2224px",
+			'z-index':998,
+		});
+	}
 
 /*///////////////////////////////////////////////
 /*
@@ -110,6 +130,10 @@ preloader();
 					$('#enter').animate({'top':'+=20px','opacity':0.8}).animate({'top':'-300px','opacity':0}, function() {
 						$(this).hide().css('opacity',1);
 					});
+
+					setTimeout(function() {
+						fireAnim();
+					}, 2000);
 					$('#result h1').html('Congratulations!')
 					$('#result p').html("You've just opened the winning parcel. Now that's got to be a reason to Love Every Second of Sydney in Summer!<br/><br/>We just need a little information so we can send your prize to you.")
 									.css('font-size','1.1em');;
@@ -121,9 +145,6 @@ preloader();
 					$('#email').val(user_info.email);
 					$('#location').val(user_info.location.name);
 					$('#fbid').val(user_info.id);
-					setTimeout(function() {
-						fireAnim();
-					}, 1000);
 					setTimeout(function() {
 						$('#result').css('opacity',0).show().animate({
 							'top': '0px',
@@ -375,31 +396,16 @@ preloader();
 		}
 	}
 
-//	var fireAnim = function() {
-//		this.winner = function() {
-//			$('#img1,#img2,#img3,#img4').css({'top':'500px','left':'304px','display':'none'}).parent('#photos').show();
-//			$('#img1').animate({'left':'44px','top':'330px'});
-//			$('#img2').animate({'left':'210px','top':'230px'});
-//			$('#img3').animate({'left':'410px','top':'234px'});
-//			$('#img4').animate({'left':'530px','top':'327px'});
-//		}
-//
-//		this.loser = function() {
-//			$('#img1').css({'top':'330px','left':'-400px'});
-//			$('#img2').css({'top':'230px','left':'-400px'})
-//			$('#img3').css({'top':'234px','left':'-400px'})
-//			$('#img4').css({'top':'327px','left':'-400px'})
-//			$('#photos').show();
-//			$('#img1').animate({'left':'44px','top':'330px'});
-//			$('#img2').animate({'left':'210px','top':'230px'});
-//			$('#img3').animate({'left':'410px','top':'234px'});
-//			$('#img4').animate({'left':'530px','top':'327px'});
-//		}
-//
-//		this.hide = function() {
-//			$('#photos').fadeOut();
-//		}
-//	};
+	function fireAnim() {
+		var totalHeight = 2224;
+		var animInt = setInterval(function() {
+			if(img.height > 0 && totalHeight > 2) {
+				console.log(totalHeight);
+				s.backgroundPosition = '-2px -'+totalHeight+'px';
+				totalHeight = totalHeight - 202;
+			}
+		}, 50);
+	};
 
 
 /*///////////////////////////////////////////////

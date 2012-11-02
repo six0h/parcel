@@ -118,6 +118,7 @@ echo '</section>';
 <script src="js/jquery-ui-1.8.18.custom.min.js"></script>
 <script src="js/jquery.form.js"></script>
 <script src="js/jquery.fancybox.pack.js"></script>
+<script src="js/jquery-jeditable.js"></script>
 <script src="js/_site.js"></script>
 <?php
 ?>

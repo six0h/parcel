@@ -130,7 +130,7 @@ if($exists == 0) {
 
 		$todays_time = $time['date']->sec;
 
-		if($time['last_claim']->sec > 0) {
+		if($time['last_claim'] > 0) {
 			$last_claim = $time['last_claim']->sec;
 		} else {
 			$last_claim = 0;

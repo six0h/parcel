@@ -8,16 +8,25 @@ a:active { outline: none; }
 }
 .clear { clear: both; }
 .animate { display: block; }
-.prize-box { position: absolute; bottom: 15px; left: 30px; width: 514px; height: 188px; background: url(../img/prizeboxes.png) no-repeat;  }
 .button-link { position: absolute; display: block; width: 240px; height: 45px; background: url(../img/button.png) no-repeat; }
 .button-half { position: absolute; display: block; width: 160px; height: 45px; background: url(../img/button-half.png) no-repeat; }
 .button-small { position: absolute; display: block; width: 100px; height: 35px; background: url(../img/button-small.png) no-repeat; }
+
+.prize-box { position: absolute; bottom: 15px; left: 30px; width: 514px; height: 188px; background: url(../img/prizeboxes.png) no-repeat;  }
+.prize-box .today { position: absolute; border: 1px solid #000; left: 20px; top: 57px; width: 226px; height: 100px; }
+.prize-box .upcoming { position: absolute; right: 75px; top: 57px; width: 150px; overlay: hidden; } 
+.prize-box .upcoming img { width: 205px; }
+
 
 #page-wrapper { position: relative; background: url(../img/bg.jpg) no-repeat; width: 809px; height: 988px; overflow: hidden; margin: 0 auto; }
 
 #thedark { width: 809px; height: 988px; background: #000; opacity: 0; display: none; }
 #thered { display: none; position: absolute; top: 0; left: 0; background: url(../img/bg-redparcel.jpg) no-repeat; width: 809px; height: 988px; }
 #finalpage { display: none; position: absolute; top: 0; left: 0; background: url(../img/bg-finalpage.jpg) no-repeat; width: 809px; height: 988px; }
+#spriteBox { position: absolute; top: 472px; left: 155px; width: 500px; height: 200px; overflow: hidden; }
+
+#loading { position: absolute; top: 300px; left: 200px; width: 400px; height: 50px; }
+#loading { font-size: 0.8em; text-align: center; }
 
 #title { z-index: 999; position: absolute; width: 519px; height: 86px; background: url(../img/passtheparcel.png) no-repeat; top: -900px; left: 150px; }
 #love-logo { position: absolute; top: 40px; left: -500px; width: 195px; height: 40px; background: url(../img/loveeverysecond.png) no-repeat; }
@@ -34,10 +43,10 @@ input { z-index: 999; }
 #like-gate .copy-box h1 { text-align: center; color: #4f4f4f; font-weight: bold; font-size: 1.4em; margin: 15px 20px 0 20px; text-shadow: 1px 1px 3px #b0b0b0; }
 #like-gate .copy-box img { margin: 20px auto 0 auto; display: block; }
 
-#enter { position: absolute; top: -900px; }
+#enter { position: absolute; top: -900px; z-index: 999; }
 #enter .copy-box { position: absolute; top: 330px; left: 120px; width: 578px; height: 197px; background: url(../img/enter/copy-panel.png) no-repeat; }
 #enter .copy-box h1 { position: absolute; bottom: 55px; left: 30px; text-align: center; width: 518px; font-size: 1.4em; letter-spacing: 0px; color: #333; text-shadow: 2px 2px 2px #c0c0c0; opacity: 0.99; }
-.button-link { z-index: 999; top: 495px; left: 300px; text-decoration: none; color: #fff; text-align: center; font-size: 1.4em; padding: 10px 0 0 0; text-shadow: 1px 1px 3px #000; }
+.button-link { display: none; z-index: 999; top: 495px; left: 300px; text-decoration: none; color: #fff; text-align: center; font-size: 1.4em; padding: 10px 0 0 0; text-shadow: 1px 1px 3px #000; }
 .button-link .arrow { color: #ffe7d0; font-size: 0.7em; padding-bottom: 3px; }
 #enter .prize-box { top: 230px; left: 150px; }
 

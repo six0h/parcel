@@ -1,3 +1,5 @@
+
+
 $(function() {
 	$('#nav li').click(function() {
 		top.window.location = '/index.php?p='+$(this).attr('id');
@@ -71,6 +73,24 @@ $(function() {
 		}
 	});
 	/**** END LOGIN AND REGISTER MODALS ****/
+
+	$('span.edit').editable('ajax/editcaption.php', {
+		indicator: 'Saving...',
+		loadtype: 'POST',
+		callback: function(v,s) {
+			console.log(v);
+			console.log(this);
+			console.log(s);
+		}
+	});
+
+	$('.upload_form').ajaxForm({
+		url: 'ajax/uploadprize.php',
+		dataType: 'json',
+		success: function(res, stat, xhr, form) {
+			window.location.reload(true);
+		}
+	});
 });
 	
 function safe(s) {

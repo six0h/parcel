@@ -67,7 +67,6 @@ Modernizr.load({
 
 <div id="fb-root"></div>
 
-<div id="canvas" width="809" height="988"></div>
 <div id="page-wrapper">
 
 	<div id="thedark"></div>
@@ -78,6 +77,8 @@ Modernizr.load({
 	<div id="love-logo"></div>
 	<div id="sydney-logo"></div>
 
+	<div id="spriteBox"></div>
+
 <?php if($liked == 1) {
 	require_once('pages.php'); 
 } else {
@@ -87,11 +88,6 @@ Modernizr.load({
 
 </div>
 
-<script src="js/easeljs-0.5.0.min.js"></script>
-<script src="js/tweenjs-0.3.0.min.js"></script>
-<script src="js/movieclip-0.5.0.min.js"></script>
-<script src="js/preloadjs-0.2.0.min.js"></script>
-<script src="js/parcel.js"></script>
 <script src="js/sydneypl.js"></script>
 <script src="js/app-config.js?date=<?php $date; ?>"></script>
 <script src="js/app.js?date=<?php $date; ?>"></script>

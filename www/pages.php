@@ -5,6 +5,10 @@
 	<img src="img/photos/img4.png" alt="image 4" id="img4" />
 </div>
 
+<div id="loading">
+	<h1>Give us a sec, this parcel is heavy! Loading...</h1>
+</div>
+
 
 <div id="enter">
 	
@@ -16,8 +20,10 @@
 
 	<div class="prize-box animate">
 		<div class="today">
+			<img src="img/legally-blonde.jpg" alt="legally blonde"/>
 		</div>
 		<div class="upcoming">
+			<img src="img/v8s.jpg" alt="Nascar"/>
 		</div>
 	</div>
 
