@@ -10,7 +10,7 @@
 var 	imgLoaded = 0,
 	mydate = new Date().getTime(),
 	spriteBox = document.getElementById('spriteBox'),
-	s = spriteBox.style,
+	sB = spriteBox.style,
 	img;
 
 $(function() { // ENCAPSULATE EVERYTHING IN JQUERY, EVEN FUNCTIONS
@@ -82,6 +82,9 @@ $(function() { // ENCAPSULATE EVERYTHING IN JQUERY, EVEN FUNCTIONS
 		});
 	}
 
+	var redBox = new Image();
+	redBox.src = 'img/red.png';
+
 /*///////////////////////////////////////////////
 /*
 /* LIKE GATE 
@@ -122,24 +125,32 @@ $(function() { // ENCAPSULATE EVERYTHING IN JQUERY, EVEN FUNCTIONS
 			error: function(res) {
 				console.log(res);
 			},
+			// IF THE ROLL WAS SUCCESSFUL (NO SERVER ERRORS)
 			success: function(res) {
 				console.log(res);
 				if(res.status == 200) {
 					$('#enter').animate({'top':'+=20px','opacity':0.8}).animate({'top':'-300px','opacity':0});
-				} else if(res.status == 999) {
+				} else if(res.status == 999) { // IF THE USER WINS
+					var fbmessage = "I just won a Sydney Prize! You should check out the Pass the Parcel contest for your chance to Love every second of Sydney in Summer!";
+					var fblink = "https://apps.facebook.com/sydneyparcel/";
+					var fbcaption = "Love every second of Sydney in Summer!"
+					FB.api('/me/feed', 'post', { message: fbmessage, caption: fbcaption, link: fblink }, function(res) {
+						if(!response || response.error) {
+							console.log('Error posting to wall');
+						}
+					});
 					$('#enter').animate({'top':'+=20px','opacity':0.8}).animate({'top':'-300px','opacity':0}, function() {
 						$(this).hide().css('opacity',1);
 					});
-
 					setTimeout(function() {
-						fireAnim();
+						fireAnim("win");
 					}, 2000);
 					$('#result h1').html('Congratulations!')
 					$('#result p').html("You've just opened the winning parcel. Now that's got to be a reason to Love Every Second of Sydney in Summer!<br/><br/>We just need a little information so we can send your prize to you.")
 									.css('font-size','1.1em');;
 					$('#result .button-small, #result #result-btn').hide();
 					$('#result').append('<a href="#" id="winEnter" class="button-link">Enter your info <span class="arrow">&gt;</a>');
-					$('#result .button-link').css('left','-=10px');
+					$('#result .button-link').css('left','-=10px').fadeIn();
 					$('#first_name').val(user_info.first_name);
 					$('#last_name').val(user_info.last_name);
 					$('#email').val(user_info.email);
@@ -151,31 +162,38 @@ $(function() { // ENCAPSULATE EVERYTHING IN JQUERY, EVEN FUNCTIONS
 							'opacity': 1
 						}).find('p').css('opacity',1);
 					}, 3000);
-				} else if(res.status == 201) {
-					$('#enter').animate({'top':'+=20px','opacity':0.8}).animate({'top':'-300px','opacity':0});
-					$('#result .copy-box h1').html('Not this time!');
-					$('#result .copy-box p').html("Sorry that wasn't the lucky layer. But, if you want to have another go, just Pass the Parcel to a friend for the chance to open it again.");
-					if(res.num_plays == 2) {
+				} else if(res.status == 201) { // IF THE USER LOSES
+					if(res.num_plays == 1) { // FIRST TIME
+						var fbmessagelose = "I just played for a chance to win a Sydney Prize! You should check out the Pass the Parcel contest for your chance to Love every second of Sydney in Summer!";
+						var fblinklose = "https://apps.facebook.com/sydneyparcel/";
+						var fbcaption2lose = "Love every second of Sydney in Summer!"
+						FB.api('/me/feed', 'post', { message: fbmessage, caption: fbcaption, link: fblink }, function(res) {
+							if(!response || response.error) {
+								console.log('Error posting to wall');
+							}
+						});
+						$('#enter').animate({'top':'+=20px','opacity':0.8}).animate({'top':'-300px','opacity':0});
+						$('#result .copy-box h1').html('Not this time!');
+						$('#result .copy-box p').html("Sorry that wasn't the lucky layer. But, if you want to have another go, just Pass the Parcel to a friend for the chance to open it again.");
+					} else { // SETUP NEW COPY IF USER LOSES SECOND TIME
+						$('#enter').animate({'top':'+=20px','opacity':0.8}).animate({'top':'-300px','opacity':0});
 						$('#result h1').html("Still not the one. Better Luck Tomorrow.").css('font-size','1.2em');
 						$('#result .copy-box p').html("We've got more parcels with more great Sydney experiences every day. So, remember to come back tomorrow and have another go.<br/><br/>In the meantime, click find out more and discover what Sydney has to offer.").css('font-size','0.9em');
 						$('#result .button-small, #result #result-btn').hide();
-						$('#result').append('<a href="#" id="finalBtn" class="button-link">Continue <span class="arrow">&gt;</a>').css('margin-left');
+						$('#result').append('<a href="#" id="finalBtn" class="button-link">Continue <span class="arrow">&gt;</a>');
+						$('#result .button-link').fadeIn();
 					}
-					setTimeout(function() {
+					setTimeout(function() { // FIRE ANIMATION
+						fireAnim("lose");
+					}, 500);
+					setTimeout(function() { // FIRE THE DIALOG BOX FOR LOSER
 						$('#result').css('opacity',0).show().animate({
 								'top': '0px',
 								'opacity': 1
 						}).find('p').css('opacity',1);
 					}, 1000);
-					setTimeout(function() {
-						fireAnim();
-					}, 3000);
 				} else if(res.status == 203) {
 					finalPage();
-// WRITE CODE TO FORWARD TO THE FINAL PAGE HERE
-// USER HAS ALREADY PLAYED TWICE AND GOT THROUGH SOMEHOW
-
-
 				} else {
 					for(err in res.errors) {
 						console.log(res);
@@ -225,22 +243,18 @@ $(function() { // ENCAPSULATE EVERYTHING IN JQUERY, EVEN FUNCTIONS
 					url: 'ajax/recordshare.php',
 					data: user_info,
 					success: function(response) {
-						console.log(response);
 						if(response.status == 200) {
 							$('#result').animate({
 								'top': '10px',
 								'opacity': 0
 							}).hide();
 						}
-						$('#canvas').animate({
-							'opacity': 0,
-							'visibility': 'hidden'
-						})
+						$('#spriteBox').fadeOut();
+						$('#photos img').fadeOut();
 						$('#thered').fadeIn();
-						registration();
+						bringTheRed(registration());
 					},
 					error: function(response) {
-						console.log(response);
 						for(err in response.errors) {
 							console.log(err);
 						}
@@ -250,6 +264,18 @@ $(function() { // ENCAPSULATE EVERYTHING IN JQUERY, EVEN FUNCTIONS
 		});
 	});
 
+	function bringTheRed(callback) {
+			$('#thered').fadeIn();
+			$('.button-link').show();
+			$('#spriteBox').css({
+				'background-image':"url("+redBox.src+")",
+				"background-position":"-2px -2224px",
+				'z-index':998,
+			});
+			$('#spriteBox').fadeIn();
+			callback;
+	}
+
 	// SHOW SHARING BOX
 	function showShare() {
 			$('#result').css('opacity', 0).show().animate({
@@ -258,7 +284,7 @@ $(function() { // ENCAPSULATE EVERYTHING IN JQUERY, EVEN FUNCTIONS
 			});
 	}
 
-	// REGISTER USER
+	// REGISTER USER CHECK PLAYED STATUS
 	function registration() {
 
 		$.ajax({
@@ -279,13 +305,13 @@ $(function() { // ENCAPSULATE EVERYTHING IN JQUERY, EVEN FUNCTIONS
 					showEnter();
 					$('#fbid').val(user_info.id);
 				} else if (response.status == 201) {
+					fireAnim("lose");
 					setTimeout(function() {
 						showShare();
-						fireAnim();
 					}, 1000);
 				} else if (response.status == 202) {
 					$('#enter .copy-box h1').html(user_info.first_name + ', open the parcel one more time for your chance to Love Every Second of Sydney in Summer');
-					$('#thered').fadeIn();
+					bringTheRed();
 					$('#auth-btn').html('Open the Parcel <span class="arrow">&gt;</span>').fadeIn();
 					played = 1;
 					showEnter();
@@ -339,7 +365,6 @@ $(function() { // ENCAPSULATE EVERYTHING IN JQUERY, EVEN FUNCTIONS
 			$(form).ajaxSubmit({
 				dataType: 'json',
 				success: function(res) {
-					console.log(res);
 					if(res.status == 200) {
 						$('#winner-form').animate({'top':'+=20px','opacity':0}, function() {
 							$(this).hide();
@@ -374,7 +399,7 @@ $(function() { // ENCAPSULATE EVERYTHING IN JQUERY, EVEN FUNCTIONS
 
 	function finalPage(state) {
 		$('#result').css('display','none');
-		$('#canvas').css('opacity',0);
+		$('#spriteBox, #photos img').fadeOut();
 		$('#finalpage').fadeIn();
 
 		if(state != 'win') {
@@ -396,17 +421,40 @@ $(function() { // ENCAPSULATE EVERYTHING IN JQUERY, EVEN FUNCTIONS
 		}
 	}
 
-	function fireAnim() {
+	function fireAnim(state) {
 		var totalHeight = 2224;
 		var animInt = setInterval(function() {
 			if(img.height > 0 && totalHeight > 2) {
-				console.log(totalHeight);
-				s.backgroundPosition = '-2px -'+totalHeight+'px';
+				sB.backgroundPosition = '-2px -'+totalHeight+'px';
 				totalHeight = totalHeight - 202;
 			}
 		}, 50);
+
+		if(state == "lose") {
+			loserAnim();
+		} else {
+			winnerAnim();
+		}
 	};
 
+	function loserAnim() {
+		$('#img1,#img2').css({'top':'200px','left':'-500px'}).show();
+		$('#img3,#img4').css({'top':'200px','left':'1280px'}).show();
+
+		$('#img1').animate({'left':'43px','top':'335px'}, 1300, 'easeInOutQuad');
+		$('#img2').animate({'left':'207px','top':'226px'}, 1300, 'easeInOutQuad');
+		$('#img3').animate({'left':'400px','top':'235px'}, 1300, 'easeInOutQuad');
+		$('#img4').animate({'left':'550px','top':'330px'}, 1300, 'easeInOutQuad');
+	}
+
+	function winnerAnim() {
+		$('#img1,#img2,#img3,#img4').css({'top':'400px','left':'270px','opacity':0}).show();
+
+		$('#img1').animate({'left':'43px','top':'335px','opacity':1}, 1300, 'easeInOutQuad');
+		$('#img2').animate({'left':'207px','top':'226px','opacity':1}, 1300, 'easeInOutQuad');
+		$('#img3').animate({'left':'400px','top':'235px','opacity':1}, 1300, 'easeInOutQuad');
+		$('#img4').animate({'left':'550px','top':'330px','opacity':1}, 1300, 'easeInOutQuad');
+	}
 
 /*///////////////////////////////////////////////
 /*

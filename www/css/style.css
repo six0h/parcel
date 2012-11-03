@@ -13,8 +13,10 @@ a:active { outline: none; }
 .button-small { position: absolute; display: block; width: 100px; height: 35px; background: url(../img/button-small.png) no-repeat; }
 
 .prize-box { position: absolute; bottom: 15px; left: 30px; width: 514px; height: 188px; background: url(../img/prizeboxes.png) no-repeat;  }
-.prize-box .today { position: absolute; border: 1px solid #000; left: 20px; top: 57px; width: 226px; height: 100px; }
-.prize-box .upcoming { position: absolute; right: 75px; top: 57px; width: 150px; overlay: hidden; } 
+.prize-box p { padding: 5px 0 0 0; }
+.prize-box .today { position: absolute; left: 22px; top: 57px; width: 226px; height: 100px; text-align: center; overflow: hidden; }
+.prize-box .today img { width: 226px; }
+.prize-box .upcoming { position: absolute; right: 21px; top: 59px; width: 205px; overflow: hidden; text-align: center; } 
 .prize-box .upcoming img { width: 205px; }
 
 
@@ -25,7 +27,7 @@ a:active { outline: none; }
 #finalpage { display: none; position: absolute; top: 0; left: 0; background: url(../img/bg-finalpage.jpg) no-repeat; width: 809px; height: 988px; }
 #spriteBox { position: absolute; top: 472px; left: 155px; width: 500px; height: 200px; overflow: hidden; }
 
-#loading { position: absolute; top: 300px; left: 200px; width: 400px; height: 50px; }
+#loading { position: absolute; top: 300px; left: 220px; width: 400px; height: 50px; z-index: 1000; }
 #loading { font-size: 0.8em; text-align: center; }
 
 #title { z-index: 999; position: absolute; width: 519px; height: 86px; background: url(../img/passtheparcel.png) no-repeat; top: -900px; left: 150px; }
@@ -35,7 +37,7 @@ a:active { outline: none; }
 .copy-box a { color: #f48029; z-index: 999; }
 .copy-box p { z-index: 999; }
 
-#result, .copy-box, p, a, .prize-box, #winner-form { z-index: 998; }
+#result, .copy-box, p, a, .prize-box, #winner-form { z-index: 999; }
 input { z-index: 999; }
 
 #like-gate { position: absolute; left: 809px; top: 0; }
@@ -58,15 +60,15 @@ input { z-index: 999; }
 #result .button-half { z-index: 999; top: 500px; left: 287px; padding: 10px 0 0 18px; font-size: 1.4em; color: #fff; text-shadow: 2px 2px 3px #c0c0c0; text-decoration: none; font-weight: bold; }
 #result .button-small { z-index: 999; top: 505px; left: 432px; padding: 8px 0 0 25px; font-size: 1em; color: #fff; text-shadow: 2px 2px 3px #c0c0c0; text-decoration: none; font-weight: bold; }
 
-#winner-form { display: none; position: absolute; top: 235px; left: 130px; width: 508px; height: 397px; background: url(../img/form-bg.png) no-repeat; z-index: 1; padding: 25px; opacity: 0; }
+#winner-form { display: none; position: absolute; top: 235px; left: 130px; width: 508px; height: 397px; background: url(../img/form-bg.png) no-repeat; z-index: 1000; padding: 25px; opacity: 0; }
 #winner-form h1 { font-size: 1.5em; font-weight: bold; text-align: center;  color: #000; padding: 5px 0 10px 0; text-shadow: 2px 2px 2px #c0c0c0; }
 #winner-form ul { list-style-type: none; margin-top: 10px; }
 #winner-form li { position: relative; margin-bottom: 15px; }
 #winner-form li label { width: 250px; text-align: right; float: left; display: block; padding-top: 5px; margin-right: 5px; }
 #winner-form li input { width: 200px; padding: 2px; }
-input.checks { width: 10px; height: 10px; }
-#winner-form #submit { background: url(../img/button-submit.png) no-repeat; width: 139px; height: 45px; margin: 0 auto; border: 0; text-indent: -9999pt; position: absolute; right: 50px; bottom: 20px; }
-#winner-form #news, #winner-form #agree { margin: 8px 0 0 -70px;}
+#winner-form li input.checks { display: block; width: 15px; height: 15px; border: 1px solid #000; background: #fff; float: left; margin-left: 50px; margin-right: 0; }
+#winner-form #submit { background: url(../img/button-submit.png) no-repeat; width: 139px; height: 45px; margin: 0 auto -50px auto; border: 0; text-indent: -9999pt; position: absolute; right: 50px; bottom: 0px; }
+#winner-form #news, #winner-form #agree { margin: 8px 0 0 10px;}
 
 #winner-form span { position: absolute; width: 250px; font-size: 0.8em; color: #ff0000; top: 20px; right: 50px; }
 .error { width: 100%; }
@@ -83,7 +85,13 @@ input.checks { width: 10px; height: 10px; }
 #finalPage .panels div { position: relative; z-index: 999; }
 #finalPage .panels div a { display: block; position: absolute; bottom: 30px; left: 25px; width: 135px; height: 25px; border: 0; text-indent:-9999pt; z-index: 999;}
 
-#photos img { display: none; }
+#photos { position: absolute; top: 0; left: 0; width: 809px; height: 988px; }
+#photos img { display: none; position: absolute; }
+
+#footer { margin-top: 10px; }
+#footer p { font-size: 0.9em; color: #c0c0c0; }
+#footer a { color: #c0c0c0; }
+
 @font-face {
 	font-family: 'GothamBook';
 	src: url('../fonts/gotham-book.eot');

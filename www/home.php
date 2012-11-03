@@ -53,14 +53,6 @@ $liked = $sr['page']['liked'];
 	<script src="js/jquery-fancybox.js"></script>
 	<script src="js/modernizr.js"></script>
 
-<script>
-Modernizr.load({
-	test: Modernizr.canvas,
-	yep: 'js/app.js',
-	nope: 'js/app-ie.js'
-});
-</script>
-
 </head>
 
 <body>
@@ -87,14 +79,22 @@ Modernizr.load({
 
 
 </div>
+<div id="footer">
+	<p><a href="#">Terms and Conditions</a> | <a href="http://www.sydney.com/privacy/" target="_blank">Privacy Policy</a> | This Promotion is held under NSW Permit Number: LTPM/12/00936</p>
+</div>
 
-<script src="js/sydneypl.js"></script>
-<script src="js/app-config.js?date=<?php $date; ?>"></script>
-<script src="js/app.js?date=<?php $date; ?>"></script>
 <?php if($liked != 1) { ?>
 	<script type="text/javascript" src="js/like.js?date=<?php echo $date; ?>"></script>
 <? } ?>
 
+<?php
+	$useragent = $_SERVER['HTTP_USER_AGENT'];
+	if (preg_match('|MSIE ([0-8].[0-9]{1,2})|',$useragent,$matched)) {
+		?> <script type="js/app-ie.js?date=<?php echo $date; ?>"></script> <?
+	} else {
+		?> <script type="js/app.js?date=<?php echo $date; ?>"></script> <?
+	}
+?>
 <script type="text/javascript">
 
 	var _gaq = _gaq || [];
