@@ -1,4 +1,4 @@
-html,body { width: 100%; height: 100%; }
+html,body { width: 100%; height: 1030px; overflow: hidden; }
 body { font-size: 80%; font-family: 'GothamBook', Arial, Helvetica, Sans-serif; }
 html,body,div,span,ul,ol,dl,li,dt,dd,h1,h2,h3,h4,h5,h6,p,em,br,hr { padding: 0; margin: 0; line-height: 1; }
 
@@ -32,7 +32,7 @@ a:active { outline: none; }
 
 #title { z-index: 999; position: absolute; width: 519px; height: 86px; background: url(../img/passtheparcel.png) no-repeat; top: -900px; left: 150px; }
 #love-logo { position: absolute; top: 40px; left: -500px; width: 195px; height: 40px; background: url(../img/loveeverysecond.png) no-repeat; }
-#sydney-logo { position: absolute; top: 40px; right: -500px; width: 167px; height: 49px; background: url(../img/sydneylogo.png) no-repeat; }
+#sydney-logo { position: absolute; top: 30px; right: -500px; width: 167px; height: 49px; background: url(../img/sydneylogo.png) no-repeat; }
 
 .copy-box a { color: #f48029; z-index: 999; }
 .copy-box p { z-index: 999; }
@@ -43,12 +43,18 @@ input { z-index: 999; }
 #like-gate { position: absolute; left: 809px; top: 0; }
 #like-gate .copy-box { position: absolute; left: 120px; top: 240px; width: 538px; height: 324px; background: url(../img/like-gate/copypanel.png) no-repeat; padding: 20px; }
 #like-gate .copy-box h1 { text-align: center; color: #4f4f4f; font-weight: bold; font-size: 1.4em; margin: 15px 20px 0 20px; text-shadow: 1px 1px 3px #b0b0b0; }
-#like-gate .copy-box img { margin: 20px auto 0 auto; display: block; }
+#like-gate .copy-box>img { margin: 20px auto 0 auto; display: block; }
+#like-gate .prize-box { position: absolute; bottom: 15px; left: 30px; width: 514px; height: 188px; background: url(../img/prizeboxes.png) no-repeat;  }
+#like-gate .prize-box p { padding: 5px 0 0 0; }
+#like-gate .prize-box .today { position: absolute; left: 22px; top: 57px; width: 226px; height: 100px; text-align: center; overflow: hidden; }
+#like-gate .prize-box .today img { margin: 0; width: 226px; }
+#like-gate .prize-box .upcoming { position: absolute; right: 21px; top: 59px; width: 205px; overflow: hidden; text-align: center; } 
+#like-gate .prize-box .upcoming img { margin: 0; width: 205px; }
 
 #enter { position: absolute; top: -900px; z-index: 999; }
 #enter .copy-box { position: absolute; top: 330px; left: 120px; width: 578px; height: 197px; background: url(../img/enter/copy-panel.png) no-repeat; }
 #enter .copy-box h1 { position: absolute; bottom: 55px; left: 30px; text-align: center; width: 518px; font-size: 1.4em; letter-spacing: 0px; color: #333; text-shadow: 2px 2px 2px #c0c0c0; opacity: 0.99; }
-.button-link { display: none; z-index: 999; top: 495px; left: 300px; text-decoration: none; color: #fff; text-align: center; font-size: 1.4em; padding: 10px 0 0 0; text-shadow: 1px 1px 3px #000; }
+.button-link { position: absolute; display: none; z-index: 1000; top: 495px; left: 300px; text-decoration: none; color: #fff; text-align: center; font-size: 1.4em; padding: 10px 0 0 0; text-shadow: 1px 1px 3px #000; }
 .button-link .arrow { color: #ffe7d0; font-size: 0.7em; padding-bottom: 3px; }
 #enter .prize-box { top: 230px; left: 150px; }
 
@@ -63,15 +69,16 @@ input { z-index: 999; }
 #winner-form { display: none; position: absolute; top: 235px; left: 130px; width: 508px; height: 397px; background: url(../img/form-bg.png) no-repeat; z-index: 1000; padding: 25px; opacity: 0; }
 #winner-form h1 { font-size: 1.5em; font-weight: bold; text-align: center;  color: #000; padding: 5px 0 10px 0; text-shadow: 2px 2px 2px #c0c0c0; }
 #winner-form ul { list-style-type: none; margin-top: 10px; }
-#winner-form li { position: relative; margin-bottom: 15px; }
-#winner-form li label { width: 250px; text-align: right; float: left; display: block; padding-top: 5px; margin-right: 5px; }
-#winner-form li input { width: 200px; padding: 2px; }
+#winner-form li { position: relative; margin-bottom: 15px; height: 26px; }
+#winner-form li label { width: 250px; text-align: right; float: left; display: block; padding-top: 5px; margin-right: 5px; z-index: 1001; }
+#winner-form li input { width: 200px; padding: 2px; z-index: 1001; }
 #winner-form li input.checks { display: block; width: 15px; height: 15px; border: 1px solid #000; background: #fff; float: left; margin-left: 50px; margin-right: 0; }
-#winner-form #submit { background: url(../img/button-submit.png) no-repeat; width: 139px; height: 45px; margin: 0 auto -50px auto; border: 0; text-indent: -9999pt; position: absolute; right: 50px; bottom: 0px; }
+#winner-form #submit { background: url(../img/button-submit.png) no-repeat; width: 139px; height: 45px; margin: 0 auto 0px auto; border: 0; text-indent: -9999pt; position: absolute; right: 50px; bottom: 50px; }
 #winner-form #news, #winner-form #agree { margin: 8px 0 0 10px;}
 
 #winner-form span { position: absolute; width: 250px; font-size: 0.8em; color: #ff0000; top: 20px; right: 50px; }
 .error { width: 100%; }
+.agree .error { margin-top: 0px; margin-left: -60px; }
 
 #finalPage { display: none; position: absolute; top: 0; left: 0; }
 #finalPage .copy-box { position: absolute; top: 265px; left: 115px; width: 528px; height: 157px; background: url(../img/finalpage-copy.png) no-repeat; padding: 25px; }

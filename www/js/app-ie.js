@@ -42,36 +42,35 @@ $(function() { // ENCAPSULATE EVERYTHING IN JQUERY, EVEN FUNCTIONS
 		imageObj = new Image();
 
 		images = [
-			'img/photos/img1.png',
-			'img/photos/img2.png',
-			'img/photos/img3.png',
-			'img/photos/img4.png',
-			'img/panels/discover.png',
-			'img/panels/events.png',
-			'img/panels/lovesydney.png',
-			'img/button.png',
-			'img/button-half.png',
-			'img/button-small.png',
-			'img/button-submit.png',
-			'img/finalpage-copy.png',
-			'img/form-bg.png',
-			'img/results/copy-panel.png',
-			'img/enter/copy-panel.png'
+			'img/photos/img1.png?date='+mydate,
+			'img/photos/img2.png?date='+mydate,
+			'img/photos/img3.png?date='+mydate,
+			'img/photos/img4.png?date='+mydate,
+			'img/panels/discover.png?date='+mydate,
+			'img/panels/events.png?date='+mydate,
+			'img/panels/lovesydney.png?date='+mydate,
+			'img/button.png?date='+mydate,
+			'img/button-half.png?date='+mydate,
+			'img/button-small.png?date='+mydate,
+			'img/button-submit.png?date='+mydate,
+			'img/finalpage-copy.png?date='+mydate,
+			'img/form-bg.png?date='+mydate,
+			'img/results/copy-panel.png?date='+mydate,
+			'img/enter/copy-panel.png?date='+mydate
 		];
 
+		imageObj.onload = function() {
+		}
 		for(i=0;i<images.length;i++) {
 			imageObj.src=images[i];
-			if(i==images.length) {
-				imgLoaded = 1;
-			}
 		}
 
 	}
 	preloader();
 
 	img = new Image();
-	img.src = "img/blue.png";
-	img.onload = function() {
+	img.src = "img/blue.png?date="+mydate;
+	img.onload = function(status) {
 		$('#loading').hide();
 		$('.button-link').show();
 		$('#spriteBox').css({
@@ -79,6 +78,7 @@ $(function() { // ENCAPSULATE EVERYTHING IN JQUERY, EVEN FUNCTIONS
 			"background-position":"-2px -2224px",
 			'z-index':998,
 		});
+		imgLoaded = 1;
 	}
 
 	var redBox = new Image();
@@ -133,7 +133,7 @@ $(function() { // ENCAPSULATE EVERYTHING IN JQUERY, EVEN FUNCTIONS
 					var fblink = "https://apps.facebook.com/sydneyparcel/";
 					var fbcaption = "Love every second of Sydney in Summer!"
 					FB.api('/me/feed', 'post', { message: fbmessage, caption: fbcaption, link: fblink }, function(res) {
-						if(!response || response.error) {
+						if(!res || res.error) {
 							// dont do anything with error
 						}
 					});
@@ -147,7 +147,7 @@ $(function() { // ENCAPSULATE EVERYTHING IN JQUERY, EVEN FUNCTIONS
 					$('#result p').html("You've just opened the winning parcel. Now that's got to be a reason to Love Every Second of Sydney in Summer!<br/><br/>We just need a little information so we can send your prize to you.")
 									.css('font-size','1.1em');;
 					$('#result .button-small, #result #result-btn').hide();
-					$('#result').append('<a href="#" id="winEnter" class="button-link">Enter your info <span class="arrow">&gt;</a>');
+					$('#result .button-link').attr('id','winEnter').html('Enter your info <span class="arrow">&gt;</span>');
 					$('#result .button-link').css('left','-=10px').show();
 					$('#first_name').val(user_info.first_name);
 					$('#last_name').val(user_info.last_name);
@@ -161,17 +161,18 @@ $(function() { // ENCAPSULATE EVERYTHING IN JQUERY, EVEN FUNCTIONS
 					}, 3000);
 				} else if(res.status == 201) { // IF THE USER LOSES
 					if(res.num_plays == 1) { // FIRST TIME
-						var fbmessagelose = "I just played for a chance to win a Sydney Prize! You should check out the Pass the Parcel contest for your chance to Love every second of Sydney in Summer!";
+						var fbmessagelose = "I just unwrapped a layer of the Love Every Second of Sydney Pass the Parcel app. Unwrap a layer to win!";
 						var fblinklose = "https://apps.facebook.com/sydneyparcel/";
 						var fbcaption2lose = "Love every second of Sydney in Summer!"
 						FB.api('/me/feed', 'post', { message: fbmessage, caption: fbcaption, link: fblink }, function(res) {
-							if(!response || response.error) {
+							if(!res || res.error) {
 								// dont do anything with error
 							}
 						});
 						$('#enter').animate({'top':'+=20px'}).animate({'top':'-300px'}, function() {
 							$(this).hide();
 						});
+						$('.button-link').hide();
 						$('#result .copy-box h1').html('Not this time!');
 						$('#result .copy-box p').html("Sorry that wasn't the lucky layer. But, if you want to have another go, just Pass the Parcel to a friend for the chance to open it again.");
 					} else { // SETUP NEW COPY IF USER LOSES SECOND TIME
@@ -181,8 +182,7 @@ $(function() { // ENCAPSULATE EVERYTHING IN JQUERY, EVEN FUNCTIONS
 						$('#result h1').html("Still not the one. Better Luck Tomorrow.").css('font-size','1.2em');
 						$('#result .copy-box p').html("We've got more parcels with more great Sydney experiences every day. So, remember to come back tomorrow and have another go.<br/><br/>In the meantime, click find out more and discover what Sydney has to offer.").css('font-size','0.9em');
 						$('#result .button-small, #result #result-btn').hide();
-						$('#result').append('<a href="#" id="finalBtn" class="button-link">Continue <span class="arrow">&gt;</a>');
-						$('#result .button-link').show();
+						$('.button-link').html('Continue <span class="arrow">&gt;</span>').attr('id','finalBtn').css({'top':'495px','left':'290x','display':'block'});
 					}
 					setTimeout(function() { // FIRE ANIMATION
 						fireAnim("lose");
@@ -290,27 +290,34 @@ $(function() { // ENCAPSULATE EVERYTHING IN JQUERY, EVEN FUNCTIONS
 				user_info.access_token = response.access_token;
 				user_info.expiry = response.expiry;
 				user_info.salt = response.salt;
-				if(response.status == 200) {
-					$('#auth-btn')
-						.html('Open the Parcel <span class="arrow">&gt;</span>')
-						.show();
-					$('#enter .copy-box h1').html(user_info.first_name + ', open the parcel for your chance to Love Every Second of Sydney In Summer');
-					showEnter();
-					$('#fbid').val(user_info.id);
-				} else if (response.status == 201) {
-					fireAnim("lose");
-					setTimeout(function() {
-						showShare();
-					}, 1000);
-				} else if (response.status == 202) {
-					$('#enter .copy-box h1').html(user_info.first_name + ', open the parcel one more time for your chance to Love Every Second of Sydney in Summer');
-					bringTheRed();
-					$('#auth-btn').html('Open the Parcel <span class="arrow">&gt;</span>').show();
-					played = 1;
-					showEnter();
-				} else if (response.status == 203) {
-					finalPage();
-				}
+				var loadInt = setInterval(function() {
+					if(imgLoaded == 1) {
+						if(response.status == 200) {
+							$('#auth-btn')
+								.html('Open the Parcel <span class="arrow">&gt;</span>')
+								.show();
+							$('#enter .copy-box h1').html(user_info.first_name + ', open the parcel for your chance to Love Every Second of Sydney In Summer');
+							$('#fbid').val(user_info.id);
+							showEnter();
+						} else if (response.status == 201) {
+							fireAnim("lose");
+							setTimeout(function() {
+								showShare();
+							}, 1000);
+						} else if (response.status == 202) {
+							$('#enter .copy-box h1').html(user_info.first_name + ', open the parcel one more time for your chance to Love Every Second of Sydney in Summer');
+							$('.button-link').hide();
+							bringTheRed();
+							$('#auth-btn').html('Open the Parcel <span class="arrow">&gt;</span>').show();
+							played = 1;
+							showEnter();
+						} else if (response.status == 203) {
+							finalPage();
+						}
+						clearInterval(loadInt);
+					}
+				}, 300);
+
 			},
 			error: function(response) {
 				alert(response.responseText);

@@ -1,5 +1,6 @@
 <?php
 require_once('../config.php');
+header("p3p: CP=\"ALL DSP COR PSAa PSDa OUR NOR ONL UNI COM NAV\"");
 require_once( BASE_PATH . 'functions.php');
 require_once( BASE_PATH . 'sdk/facebook-sdk/facebook.php');
 date_default_timezone_set('Australia/Sydney');
@@ -19,8 +20,8 @@ $date = date('U'); $time = date('U');
 
 $creds = array( // FACEBOOK APP CREDS
         'appId' => APP_ID,
-		'secret' => APP_SECRET,
-		'cookie' => true
+	'secret' => APP_SECRET,
+	'cookie' => true
 );
 
 // INIT FACEBOOK
@@ -83,16 +84,18 @@ $liked = $sr['page']['liked'];
 	<p><a href="#">Terms and Conditions</a> | <a href="http://www.sydney.com/privacy/" target="_blank">Privacy Policy</a> | This Promotion is held under NSW Permit Number: LTPM/12/00936</p>
 </div>
 
-<?php if($liked != 1) { ?>
-	<script type="text/javascript" src="js/like.js?date=<?php echo $date; ?>"></script>
-<? } ?>
-
 <?php
 	$useragent = $_SERVER['HTTP_USER_AGENT'];
 	if (preg_match('|MSIE ([0-8].[0-9]{1,2})|',$useragent,$matched)) {
-		?> <script type="js/app-ie.js?date=<?php echo $date; ?>"></script> <?
+		if($liked != 1) {
+			?> <script type="text/javascript" src="js/like-ie.js?date=<?php echo $date; ?>"></script> <?
+		}
+		?> <script src="js/app-ie.js?date=<?php echo $date; ?>"></script> <?
 	} else {
-		?> <script type="js/app.js?date=<?php echo $date; ?>"></script> <?
+		if($liked != 1) {
+			?> <script type="text/javascript" src="js/like.js?date=<?php echo $date; ?>"></script> <?
+		}
+		?> <script src="js/app.js?date=<?php echo $date; ?>"></script> <?
 	}
 ?>
 <script type="text/javascript">

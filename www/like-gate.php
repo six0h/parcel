@@ -7,12 +7,12 @@
 
 		<div class="prize-box animate">
 			<div class="today">
-				<img src="img/legally-blonde.jpg" alt="legally blonde"/>
-				<p>Double Pass to Legally-Blonde the Musical</p>
+				<img src="img/v8s.jpg" alt="Nascar"/>
+				<p>Double Pass to 2012 Sydney Telstra 500</p>
 			</div>
 			<div class="upcoming">
 				<img src="img/v8s.jpg" alt="Nascar"/>
-				<p>Double Pass to the Sydney Telstra 500</p>
+				<p>Double Pass to 2012 Sydney Telstra 500</p>
 			</div>
 		</div>
 

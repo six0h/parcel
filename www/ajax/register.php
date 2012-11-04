@@ -33,7 +33,11 @@ $crit = array('fbid' => $id);
 $exists = $db->count('users', $crit);
 
 // ASSIGN LOCATION A VARIABLE
-$loc = $location['name'];
+if(isset($location['name'])) {
+	$loc = $location['name'];
+} else {
+	$loc = '';
+}
 
 // GET EXPIRY DATE ON LONG-LIVED ACCESS TOKEN
 $expires = new MongoDate(date('U') + $output['expires']);
@@ -48,6 +52,7 @@ if($exists == 0) {
 		'gender'=>$gender,
 		'location'=>$loc,
 		'access_token'=>$output['access_token'],
+		'date'=>new MongoDate(),
 		'expires'=>$expires);
 	try {
 		// INSERT INTO DATABASE
@@ -130,7 +135,7 @@ if($exists == 0) {
 
 		$todays_time = $time['date']->sec;
 
-		if($time['last_claim'] > 0) {
+		if(isset($time['last_claim']) && $time['last_claim']->sec > 0) {
 			$last_claim = $time['last_claim']->sec;
 		} else {
 			$last_claim = 0;
@@ -144,7 +149,7 @@ if($exists == 0) {
 
 	if($todays_time < $now->sec) {
 		$claim_expiry = new MongoDate(strtotime('- 5 minutes'));
-		if($last_claim < $claim_expiry) {
+		if($last_claim->sec < $claim_expiry->sec) {
 			if(!isset($winner)) {
 				$salt = $todays_key;
 				try {

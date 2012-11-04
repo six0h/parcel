@@ -20,12 +20,12 @@
 
 	<div class="prize-box animate">
 		<div class="today">
-			<img src="img/legally-blonde.jpg" alt="legally blonde"/>
-			<p>Double Pass to Legally-Blonde the Musical</p>
+			<img src="img/v8s.jpg" alt="Nascar"/>
+			<p>Double Pass to 2012 Sydney Telstra 500</p>
 		</div>
 		<div class="upcoming">
 			<img src="img/v8s.jpg" alt="Nascar"/>
-			<p>Double Pass to the Sydney Telstra 500</p>
+			<p>Double Pass to 2012 Sydney Telstra 500</p>
 		</div>
 	</div>
 
@@ -39,6 +39,7 @@
 
 	<a href="#" class="button-small">Skip <span class="arrow">&gt;</span></a>
 	<a href="#" id="result-btn" class="button-half">Pass it On <span class="arrow">&gt;</span></a>
+	<a href="#" id="finalBtn" class="button-link">Continue <span class="arrow">&gt;</span></a>
 </div>
 
 <div id="winner-form">
@@ -53,9 +54,9 @@
 			<li><label for="phone">Phone Number</label><input type="text" name="phone" id="phone"/></li>
 			<li><label for="news">I would like to be contacted on any deal and promotions related to Sydney</label>
 				<input type="checkbox" name="news" id="news" class="checks" /></li>
-			<li><label for="agree">I agree to the Terms & Conditions*</label>
-				<input type="checkbox" name="agree" id="agree" class="checks" /></li>
-			<li><input type="submit" value="Submit" id="submit" name="submit"/></li>
+			<li class="agree"><label for="agree">I agree to the Terms & Conditions*</label>
+				<input type="checkbox" name="agree" id="agree" class="checks" /><br class="break" /></li>
+			<li><input type="submit" value="Submit" id="submit" name="submit"/><br class="break"/></li>
 			<input type="hidden" id="fbid" name="fbid"/>
 		</form>
 	</ul>
