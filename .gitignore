@@ -3,3 +3,4 @@ assets/
 *.swp
 .fuse*
 app-config.js
+www/uploads/*

@@ -189,13 +189,14 @@ if(isset($_GET['add']) || isset($_POST['tryadd'])) {
 $crit = array('admin' => 1);
 $results = $db->select('users',$crit);
 $count = $db->count('users',$crit);
-echo "<span class='content'>Total Users: ".$count." ( <a href='".$_SERVER['PHP_SELF']."?p=users&add=1&admin=1'>Add User</a> )</span><a id='exportLink' href='#'>Export to CSV</a>";
+echo "<span class='content'>Total Users: ".$count." ( <a href='".$_SERVER['PHP_SELF']."?p=users&add=1&admin=1'>Add Admin</a> )</span><a id='exportLink' href='#'>Export to CSV</a>";
 echo "<br />";
 ?>
 
 <table class="modal">
 	<thead>
 		<tr>
+			<th>FBID</th>
 			<th>First</th>
 			<th>Last</th>
 			<th>Email</th>
@@ -212,6 +213,7 @@ echo "<br />";
 			if($res['ip'] == '') $ip = '0.0.0.0';
 		?>
 		<tr id="user_<?php echo $_id;?>">
+			<td><?php echo $fbid; ?></td>
 			<td><?php echo $first_name; ?></td>
 			<td><?php echo $last_name; ?></td>
 			<td><?php echo $email; ?></td>
@@ -235,6 +237,7 @@ echo "<br />";
 <table class="modal">
 	<thead>
 		<tr>
+			<th>FBID</th>
 			<th>First</th>
 			<th>Last</th>
 			<th>Email</th>
@@ -251,6 +254,7 @@ echo "<br />";
 			if($res['ip'] == '') $ip = '0.0.0.0';
 		?>
 		<tr id="user_<?php echo $_id;?>">
+			<td><?php echo $fbid; ?></td>
 			<td><?php echo $first_name; ?></td>
 			<td><?php echo $last_name; ?></td>
 			<td><?php echo $email; ?></td>

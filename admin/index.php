@@ -58,6 +58,15 @@ if(isset($data['email']))
 	<span>Admin Panel</span>
 
 	<br class="clear" />
+
+	<div id="nav">
+		<ul>
+			<li><a href="<?php echo $_SERVER['PHP_SELF'];?>?p=users">Users</a></li>
+			<li><a href="<?php echo $_SERVER['PHP_SELF'];?>?p=plays">Plays</a></li>
+			<li><a href="<?php echo $_SERVER['PHP_SELF'];?>?p=campaigns">Campaigns</a></li>
+			<li><a href="<?php echo $_SERVER['PHP_SELF'];?>?p=winners">Winners</a></li>
+		</ul>
+	</div>
 	
 </header>
 <?php
@@ -82,6 +91,18 @@ switch($p) {
 	case 'campaigns':
 
 		require_once('campaigns.php');
+
+	break;
+	
+	case 'plays':
+
+		require_once('plays.php');
+
+	break;
+
+	case 'winners':
+
+		require_once('winners.php');
 
 	break;
 

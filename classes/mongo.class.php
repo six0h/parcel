@@ -20,7 +20,8 @@ class Db {
 		$record = $this->db->$collection->find($crit);
 		if(isset($options['sort'])) {
 			$record->sort($options['sort']);
-		} else if (isset($options['limit'])) {
+		} 
+		if (isset($options['limit'])) {
 			$record->limit($options['limit']);
 		}
 		return $record;

@@ -130,16 +130,12 @@ $(function() { // ENCAPSULATE EVERYTHING IN JQUERY, EVEN FUNCTIONS
 			success: function(res) {
 				console.log(res);
 				if(res.status == 200) {
-					$('#enter').animate({'top':'+=20px','opacity':0.8}).animate({'top':'-300px','opacity':0});
+					alert("There are no campaigns today.");
+					top.window.location.reload(true);
 				} else if(res.status == 999) { // IF THE USER WINS
 					var fbmessage = "I just won tickets to the Sydney Telstra 500 using the Love Every Second of Sydney Pass the Parcel app. Unwrap a layer to win!";
 					var fblink = "https://apps.facebook.com/sydneyparcel/";
 					var fbcaption = "Love Every Second of Sydney in Summer!"
-					FB.api('/me/feed', 'post', { message: fbmessage, caption: fbcaption, link: fblink }, function(res) {
-						if(!res || res.error) {
-							console.log('Error posting to wall');
-						}
-					});
 					$('#enter').animate({'top':'+=20px','opacity':0.8}).animate({'top':'-300px','opacity':0}, function() {
 						$(this).hide().css('opacity',1);
 					});
@@ -163,16 +159,16 @@ $(function() { // ENCAPSULATE EVERYTHING IN JQUERY, EVEN FUNCTIONS
 							'opacity': 1
 						}).find('p').css('opacity',1);
 					}, 3000);
+					FB.api('/me/feed', 'post', { message: fbmessage, caption: fbcaption, link: fblink }, function(res) {
+						if(!res || res.error) {
+							console.log('Error posting to wall');
+						}
+					});
 				} else if(res.status == 201) { // IF THE USER LOSES
 					if(res.num_plays == 1) { // FIRST TIME
 						var fbmessagelose = "I just unwrapped a layer of the Love Every Second of Sydney Pass the Parcel app. Unwrap a layer to win!";
 						var fblinklose = "https://apps.facebook.com/sydneyparcel/";
 						var fbcaptionlose = "Love Every Second of Sydney in Summer!"
-						FB.api('/me/feed', 'post', { message: fbmessagelose, caption: fbcaptionlose, link: fblinklose }, function(res) {
-							if(!res || res.error) {
-								console.log('Error posting to wall');
-							}
-						});
 						$('.button-link').hide();
 						$('#enter').animate({'top':'+=20px','opacity':0.8}).animate({'top':'-300px','opacity':0});
 						$('#result .copy-box h1').html('Not this time!');
@@ -194,11 +190,16 @@ $(function() { // ENCAPSULATE EVERYTHING IN JQUERY, EVEN FUNCTIONS
 								'opacity': 1
 						}).find('p').css('opacity',1);
 					}, 1000);
+					FB.api('/me/feed', 'post', { message: fbmessagelose, caption: fbcaptionlose, link: fblinklose }, function(res) {
+						if(!res || res.error) {
+							console.log('Error posting to wall');
+						}
+					});
 				} else if(res.status == 203) {
 					finalPage();
 				} else {
 					for(err in res.errors) {
-						console.log(res);
+						alert('Server Error: Please refresh, clear your cache, and try again');	
 					}
 				}
 			}
@@ -320,6 +321,7 @@ $(function() { // ENCAPSULATE EVERYTHING IN JQUERY, EVEN FUNCTIONS
 							played = 1;
 							showEnter();
 						} else if (response.status == 203) {
+							$('#enter').fadeOut();
 							finalPage();
 						}
 						clearInterval(loadInt);
@@ -409,14 +411,7 @@ $(function() { // ENCAPSULATE EVERYTHING IN JQUERY, EVEN FUNCTIONS
 		$('#spriteBox, #photos img').fadeOut();
 		$('#finalpage').fadeIn();
 
-		if(state != 'win') {
-			$('#finalPage h1')
-				.css({'margin-top':'15px','margin-bottom':'20px'})
-				.html('Discover the vibrancy of Sydney');
-			$('#finalPage h2').css('display','none');
-			$('#finalPage p').css({'font-size':'1em','padding': '0 20px'}).html('See Sydney shine in summer with its spectacular line up of events, relaxed outdoor and beach lifestyle and dazzling display of nature and parks. Visit <a href="http://www.sydney.com/" target="_blank">sydney.com</a> to start planning your next trip.')
-			$('#finalPage').fadeIn();
-		} else {
+		if(state == "win") {
 			$('#finalPage h1')
 				.css({'margin-top':'10px','margin-bottom':'5px'})
 				.html('Congratulations.');
@@ -425,7 +420,15 @@ $(function() { // ENCAPSULATE EVERYTHING IN JQUERY, EVEN FUNCTIONS
 				.css({'font-size':'1em','padding': '0 20px'})
 				.html('See Sydney shine in summer with its spectacular line up of events, relaxed outdoor and beach lifestyle and dazzling display of nature and parks. Visit <a href="http://www.sydney.com/" target="_blank">sydney.com</a> to start planning your next trip.')
 			$('#finalPage').fadeIn();
+		} else {
+			$('#finalPage h1')
+				.css({'margin-top':'15px','margin-bottom':'20px'})
+				.html('Discover the vibrancy of Sydney');
+			$('#finalPage h2').css('display','none');
+			$('#finalPage p').css({'font-size':'1em','padding': '0 20px'}).html('See Sydney shine in summer with its spectacular line up of events, relaxed outdoor and beach lifestyle and dazzling display of nature and parks. Visit <a href="http://www.sydney.com/" target="_blank">sydney.com</a> to start planning your next trip.')
+			$('#finalPage').fadeIn();
 		}
+
 	}
 
 	function fireAnim(state) {
@@ -437,10 +440,10 @@ $(function() { // ENCAPSULATE EVERYTHING IN JQUERY, EVEN FUNCTIONS
 			}
 		}, 50);
 
-		if(state == "lose") {
-			loserAnim();
-		} else {
+		if(state == "win") {
 			winnerAnim();
+		} else {
+			loserAnim();
 		}
 	};
 
@@ -490,6 +493,7 @@ fbinit();
 		FB.Canvas.setAutoGrow();
 
 		    FB.Event.subscribe('auth.statusChange', function(response) {
+		    	console.log(response);
 		    	if(response.status == 'connected') {
 				access_token = response.authResponse.accessToken;
 				user_id = response.authResponse.userID;

@@ -1,3 +1,15 @@
+<?php
+
+require_once('../config.php');
+
+$today = new MongoDate(strtotime('today'));
+$tomorrow = new MongoDate(strtotime('tomorrow'));
+$crit = array();
+$options = array('limit'=>2,'sort'=>array('date'=>1));
+$prizes = $db->select('campaigns',$crit,$options); 
+$i = 1;
+?>
+
 <div id="photos">
 	<img src="img/photos/img1.png" alt="image 1" id="img1" />
 	<img src="img/photos/img2.png" alt="image 2" id="img2" />
@@ -19,14 +31,18 @@
 	<a href="#" id="auth-btn" class="button-link animate auth">Let's Play! <span class="arrow">&gt;</span></a>
 
 	<div class="prize-box animate">
-		<div class="today">
-			<img src="img/v8s.jpg" alt="Nascar"/>
-			<p>Double Pass to 2012 Sydney Telstra 500</p>
-		</div>
-		<div class="upcoming">
-			<img src="img/v8s.jpg" alt="Nascar"/>
-			<p>Double Pass to 2012 Sydney Telstra 500</p>
-		</div>
+
+		<?php
+		foreach($prizes as $prize) : 
+			$caption = $prize['caption'];
+			$file = $prize['prize'];
+			($i == 1) ? $class = 'today' : $class = 'upcoming';
+		?>
+			<div class="<?php echo $class; ?>">
+				<img src="uploads/<?php echo $file; ?>" alt="Nascar"/>
+				<p><?php echo $caption; ?></p>
+			</div>
+		<?php $i++; endforeach; ?>
 	</div>
 
 </div>

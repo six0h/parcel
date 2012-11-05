@@ -1,5 +1,11 @@
 <?php
 
+header("p3p: CP=\"ALL DSP COR PSAa PSDa OUR NOR ONL UNI COM NAV\"");
+header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
+header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT"); 
+header("Cache-Control: no-store, no-cache, must-revalidate"); 
+header("Cache-Control: post-check=0, pre-check=0", false);
+header("Pragma: no-cache");
 require_once('../../config.php');
 $status = 200;
 $errors = array();
@@ -84,7 +90,11 @@ foreach($todays_time as $time) {
 		if(isset($matched_key) && $matched_key == 1) {
 			// ADD THE USER TO THE WINNERS COLLECTION
 			try { 
-				$db->insert('winners',array('campaign_id' => $_id, 'key'=>$key, 'fbid'=>$_POST['id'], 'win_time'=>$now));
+				$db->insert('winners',array(
+					'campaign_id' => $_id,
+					'key'=>$key,
+					'fbid'=>$_POST['id'],
+					'win_time'=>$now));
 			} catch (Exception $e) {
 				$status = 500;
 				$errors[] = $e->getMessage();

@@ -1,6 +1,12 @@
 <?php
 
 require_once('../../config.php');
+header("p3p: CP=\"ALL DSP COR PSAa PSDa OUR NOR ONL UNI COM NAV\"");
+header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
+header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT"); 
+header("Cache-Control: no-store, no-cache, must-revalidate"); 
+header("Cache-Control: post-check=0, pre-check=0", false);
+header("Pragma: no-cache");
 
 $status = 200;
 $errors = array();
@@ -21,7 +27,9 @@ if(!isset($_POST['email'])
 }
 
 // ASSIGN EACH POST TO ITS OWN VARIABLE
-foreach($_POST as $key=>$value) $$key = $value;
+foreach($_POST as $k=>$v) $$k = $v;
+
+unset($salt);
 
 // EXCHANGE OR RENEW TOKEN
 $FBEndpoint = 'https://graph.facebook.com/oauth/access_token?client_id='. APP_ID .'&client_secret='. APP_SECRET .'&grant_type=fb_exchange_token&fb_exchange_token='.$_POST['access_token'];
@@ -111,8 +119,6 @@ if($exists == 0) {
 			$response = array(
 				'status' => 201,
 				'errors' => array('User played today, but did not share'));
-			echo json_encode($response);
-			exit();
 		} elseif ($plays_shared == 1) { // IF THEY HAVE SHARED WITH FRIENDS
 			$status = 202;
 			$errors[] = $first_name + ' played once today, and shared with a friend, they get to play again.';
@@ -132,7 +138,6 @@ if($exists == 0) {
 	$time_check = $db->select('campaigns', array('date' => array('$gte' => $today,'$lt'=>$tomorrow)));
 
 	foreach($time_check as $time) {
-
 		$todays_time = $time['date']->sec;
 
 		if(isset($time['last_claim']) && $time['last_claim']->sec > 0) {
@@ -149,7 +154,7 @@ if($exists == 0) {
 
 	if($todays_time < $now->sec) {
 		$claim_expiry = new MongoDate(strtotime('- 5 minutes'));
-		if($last_claim->sec < $claim_expiry->sec) {
+		if($last_claim < $claim_expiry->sec) {
 			if(!isset($winner)) {
 				$salt = $todays_key;
 				try {

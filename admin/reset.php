@@ -1,11 +1,11 @@
 <?php
 
-$how_many_days = 5;
+$how_many_days = 90;
 
 require_once('../config.php');
 
 $db->remove('campaigns',array());
-$db->remove('users',array());
+$db->remove('users',array('first_name'=>array('$ne'=>'think')));
 $db->remove('plays',array());
 $db->remove('winners',array());
 
