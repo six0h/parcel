@@ -26,7 +26,7 @@ $(function() { // ENCAPSULATE EVERYTHING IN JQUERY, EVEN FUNCTIONS
 	var	pages = $('#page-wrapper>div'),
 		page_tab = 'https://aus2.ionflo.com/nsw/www/home.php',
 		channel = '//aus2.ionflo.com/nsw/www/channel.html',
-		app_id = '498809820144045',
+		app_id = '120359788120905',
 		user_info = '',
 		user_id = '',
 		access_token = '',
@@ -128,7 +128,6 @@ $(function() { // ENCAPSULATE EVERYTHING IN JQUERY, EVEN FUNCTIONS
 			},
 			// IF THE ROLL WAS SUCCESSFUL (NO SERVER ERRORS)
 			success: function(res) {
-				console.log(res);
 				if(res.status == 200) {
 					alert("There are no campaigns today.");
 					top.window.location.reload(true);
@@ -296,7 +295,6 @@ $(function() { // ENCAPSULATE EVERYTHING IN JQUERY, EVEN FUNCTIONS
 			url: 'ajax/register.php',
 			data: user_info,
 			success: function(response) {
-				console.log(response);
 				user_info.access_token = response.access_token;
 				user_info.expiry = response.expiry;
 				user_info.salt = response.salt;
@@ -380,7 +378,6 @@ $(function() { // ENCAPSULATE EVERYTHING IN JQUERY, EVEN FUNCTIONS
 						});
 						finalPage('win');
 					} else if (res.status == 500) {
-						console.log(error);
 						alert("There was a server error. Please try again.");
 					} else {
 						for(err in res.errors) console.log(err);
@@ -466,6 +463,18 @@ $(function() { // ENCAPSULATE EVERYTHING IN JQUERY, EVEN FUNCTIONS
 		$('#img4').animate({'left':'550px','top':'330px','opacity':1}, 1300, 'easeInOutQuad');
 	}
 
+	$('.rules').click(function() {
+
+		$('#rules').fadeIn().css('z-index',10000);
+	
+	});
+
+	$('.close').click(function() {
+
+		$('#rules').fadeOut();
+	
+	});
+
 /*///////////////////////////////////////////////
 /*
 /* Initialize Facebook 
@@ -493,7 +502,6 @@ fbinit();
 		FB.Canvas.setAutoGrow();
 
 		    FB.Event.subscribe('auth.statusChange', function(response) {
-		    	console.log(response);
 		    	if(response.status == 'connected') {
 				access_token = response.authResponse.accessToken;
 				user_id = response.authResponse.userID;

@@ -26,7 +26,7 @@ $(function() { // ENCAPSULATE EVERYTHING IN JQUERY, EVEN FUNCTIONS
 	var	pages = $('#page-wrapper>div'),
 		page_tab = 'https://aus2.ionflo.com/nsw/www/home.php',
 		channel = '//aus2.ionflo.com/nsw/www/channel.html',
-		app_id = '498809820144045',
+		app_id = '120359788120905',
 		user_info = '',
 		user_id = '',
 		access_token = '',
@@ -453,6 +453,18 @@ $(function() { // ENCAPSULATE EVERYTHING IN JQUERY, EVEN FUNCTIONS
 		$('#img3').animate({'left':'400px','top':'235px'}, 1300, 'easeInOutQuad');
 		$('#img4').animate({'left':'550px','top':'330px'}, 1300, 'easeInOutQuad');
 	}
+
+	$('.rules').click(function() {
+
+		$('#rules').fadeIn();
+
+	});
+
+	$('.close').click(function() {
+
+		$('#rules'.fadeOut();
+	
+	});
 
 /*///////////////////////////////////////////////
 /*

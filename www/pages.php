@@ -99,3 +99,8 @@ $i = 1;
 	</div>
 </div>
 
+<div id="rules">
+	<iframe src="TnC.html"></iframe>
+	<a href="#" class="close">Close</a>
+</div>
+

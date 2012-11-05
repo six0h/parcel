@@ -1,5 +1,7 @@
 <?php
+date_default_timezone_set('Australia/Sydney');
 require_once('../config.php');
+require_once(CLASS_PATH . 'Mobile_Detect.php');
 header("p3p: CP=\"ALL DSP COR PSAa PSDa OUR NOR ONL UNI COM NAV\"");
 header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
 header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT"); 
@@ -8,6 +10,21 @@ header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cache");
 require_once( BASE_PATH . 'functions.php');
 require_once( BASE_PATH . 'sdk/facebook-sdk/facebook.php');
+
+$detect = new Mobile_Detect();
+
+if($detect->isMobile()) {
+
+	header("Location: ". BASE_URL . "mobile.php");
+
+}
+
+
+if($detect->isTablet()) {
+
+//	header("Location: ". BASE_URL . "mobile.php");
+
+}
 
 $banned = check_bans();
 if($banned > 0) {
@@ -85,7 +102,7 @@ $liked = $sr['page']['liked'];
 
 </div>
 <div id="footer">
-	<p><a href="#">Terms and Conditions</a> | <a href="http://www.sydney.com/privacy/" target="_blank">Privacy Policy</a> | This Promotion is held under NSW Permit Number: LTPM/12/00936</p>
+	<p><a class="rules" href="#">Terms and Conditions</a> | <a href="http://www.sydney.com/privacy/" target="_blank">Privacy Policy</a> | This Promotion is held under NSW Permit Number: LTPM/12/00936</p>
 </div>
 
 <?php

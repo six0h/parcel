@@ -27,10 +27,10 @@ a:active { outline: none; }
 #finalpage { display: none; position: absolute; top: 0; left: 0; background: url(../img/bg-finalpage.jpg) no-repeat; width: 809px; height: 988px; }
 #spriteBox { position: absolute; top: 472px; left: 155px; width: 500px; height: 200px; overflow: hidden; }
 
-#loading { position: absolute; top: 300px; left: 220px; width: 400px; height: 50px; z-index: 1000; }
+#loading { position: absolute; top: 300px; left: 220px; width: 400px; height: 50px; }
 #loading { font-size: 0.8em; text-align: center; }
 
-#title { z-index: 999; position: absolute; width: 519px; height: 86px; background: url(../img/passtheparcel.png) no-repeat; top: -900px; left: 150px; }
+#title { position: absolute; width: 519px; height: 86px; background: url(../img/passtheparcel.png) no-repeat; top: -900px; left: 150px; }
 #love-logo { position: absolute; top: 40px; left: -500px; width: 195px; height: 40px; background: url(../img/loveeverysecond.png) no-repeat; }
 #sydney-logo { position: absolute; top: 30px; right: -500px; width: 167px; height: 49px; background: url(../img/sydneylogo.png) no-repeat; }
 
@@ -98,6 +98,10 @@ input { z-index: 999; }
 #footer { margin-top: 10px; }
 #footer p { font-size: 0.9em; color: #c0c0c0; }
 #footer a { color: #c0c0c0; }
+
+#rules { position: absolute; display: none; width: 578px; height: 607px; background: url(../img/tc-panel.png) no-repeat; padding: 15px; z-index: 1005; top: 60px; left: 100px;  }
+#rules iframe { width: 548px; height: 574px; border: 0; z-index: 1005; }
+.close { display: block; width: 136px; height: 45px; text-indent: -9999pt; background: url(../img/close.png) no-repeat; position: absolute; bottom: 15px; left: 220px; }
 
 @font-face {
 	font-family: 'GothamBook';

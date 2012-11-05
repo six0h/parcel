@@ -1,6 +1,21 @@
 <?php
 require_once('../config.php');
+require_once(CLASS_PATH . 'Mobile_Detect.php');
 header("p3p: CP=\"ALL DSP COR PSAa PSDa OUR NOR ONL UNI COM NAV\"");
+
+$detect = new Mobile_Detect();
+
+if($detect->isMobile()) {
+
+	header('Location: ' . BASE_URL . 'mobile.php');
+
+}
+
+if($detect->isTablet()) {
+
+	header('Location: ' . BASE_URL . 'mobile.php');
+
+}
 ?>
 <!DOCTYPE html>
 <html>

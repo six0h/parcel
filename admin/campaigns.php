@@ -36,7 +36,7 @@ $items = $db->select('campaigns',array(),array('sort'=>array('_id'=>1)));
 	?>
 		<tr>
 			<td><?=$_id?></td>
-			<td><?=date('M d Y h:i:s', $date->sec);?></td>
+			<td><?=date('M d Y h:i:s e', $date->sec);?></td>
 			<td><?=$key?></td>
 			<td><?=$last_claim?></td>
 			<td><? if(isset($winner)) echo $winner;?></td>
