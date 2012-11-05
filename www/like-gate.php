@@ -25,7 +25,7 @@ $i = 1;
 				($i == 1) ? $class = 'today' : $class = 'upcoming';
 			?>
 			<div class="<?php echo $class; ?>">
-				<img src="uploads/<?php echo $file; ?>" alt="Nascar"/>
+				<img src="uploads/<?php echo $file; ?>" alt="<?php echo $caption; ?> "/>
 				<p><?php echo $caption; ?></p>
 			</div>
 			<?php $i++; endforeach; ?>

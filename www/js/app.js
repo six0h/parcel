@@ -24,8 +24,8 @@ $(function() { // ENCAPSULATE EVERYTHING IN JQUERY, EVEN FUNCTIONS
 
 // DEFINE GLOBALS
 	var	pages = $('#page-wrapper>div'),
-		page_tab = 'https://aus.ionflo.com/nsw/www/home.php',
-		channel = '//aus.ionflo.com/nsw/www/channel.html',
+		page_tab = 'https://aus2.ionflo.com/nsw/www/home.php',
+		channel = '//aus2.ionflo.com/nsw/www/channel.html',
 		app_id = '498809820144045',
 		user_info = '',
 		user_id = '',
