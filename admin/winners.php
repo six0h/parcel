@@ -28,7 +28,7 @@ $items = $db->select('winners',array(),array('sort'=>array('date'=>1)));
 
 		$datequery = $db->select('campaigns',array('_id'=>new MongoId($id)));
 		foreach($datequery as $camp) $date = $camp['date'];
-		$date = date('M d Y h:i:s e', $date);
+		$date = date('M d Y H:i:s e', $date);
 	?>
 		<tr>
 			<td><?php echo $id; ?></td>

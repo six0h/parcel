@@ -31,7 +31,7 @@ $count = $db->count('plays',array());
 		}
 		if(isset($item['email'])) $email = $item['email'];
 		if(isset($item['key'])) $key = $item['key'];
-		if(isset($item['date'])) $date = date('M d Y h:i:s e', $item['date']->sec);
+		if(isset($item['date'])) $date = date('M d Y H:i:s e', $item['date']->sec);
 	?>
 		<tr>
 			<td><?php echo $fbid;?></td>	
