@@ -189,7 +189,7 @@ if(isset($_GET['add']) || isset($_POST['tryadd'])) {
 $crit = array('admin' => 1);
 $results = $db->select('users',$crit);
 $count = $db->count('users',$crit);
-echo "<span class='content'>Total Users: ".$count." ( <a href='".$_SERVER['PHP_SELF']."?p=users&add=1&admin=1'>Add Admin</a> )</span><a id='exportLink' href='#'>Export to CSV</a>";
+echo "<span class='content'>Total Users: ".$count; // " ( <a href='".$_SERVER['PHP_SELF']."?p=users&add=1&admin=1'>Add Admin</a> )</span><a id='exportLink' href='#'>Export to CSV</a>";
 echo "<br />";
 ?>
 
@@ -230,7 +230,7 @@ echo "<br />";
 $crit = array('admin' => array('$exists' => false));
 $results = $db->select('users',$crit);
 $count = $db->count('users',$crit);
-echo "<span class='content'>Total Users: ".$count." ( <a href='".$_SERVER['PHP_SELF']."?p=users&add=1'>Add User</a> )</span><a id='exportLink' href='#'>Export to CSV</a>";
+echo "<span class='content'>Total Users: ".$count; // ( <a href='".$_SERVER['PHP_SELF']."?p=users&add=1'>Add User</a> )</span><a id='exportLink' href='#'>Export to CSV</a>";
 echo "<br />";
 ?>
 

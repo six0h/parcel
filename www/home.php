@@ -60,7 +60,8 @@ $liked = $sr['page']['liked'];
 
 <head>
 
-	<title></title>
+	<title>Pass the Parcel | Love Every Second. Sydney in Summer.</title>
+	<meta name="description" content="Love Every Second of Sydney Pass the Parcel app. Unwrap a layer to win!"/>
 	<meta charset="utf-8" />
 
 	<link rel="stylesheet" type="text/css" href="css/style.css?date=<?php $date; ?>" />

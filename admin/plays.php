@@ -3,10 +3,12 @@
 require_once('../config.php');
 
 $items = $db->select('plays',array(),array('sort'=>array('date'=>1)));
+$count = $db->count('plays',array());
 
 
 ?>
 
+<p>Total Plays: <?php echo $count; ?></p>
 <table class="modal">
 	<thead>
 		<tr>
