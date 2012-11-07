@@ -2,7 +2,7 @@
 /*
 /* AUTHOR:	Cody Halovich (cody at telenova dot ca)
 /* CLIENT:	Chillspace Print. Web. IT. for Think! Social Media
-/* PROJECT:	Love Ottawa
+/* PROJECT:	Pass the  Facebook Application
 /*
 /* DO NOT EDIT THIS DOCUMENT OR ANY FILES RELATED TO THE PARENT PROJECT WITHOUT PERMISSION OF THE AUTHOR.
 /*
@@ -128,12 +128,13 @@ $(function() { // ENCAPSULATE EVERYTHING IN JQUERY, EVEN FUNCTIONS
 			},
 			// IF THE ROLL WAS SUCCESSFUL (NO SERVER ERRORS)
 			success: function(res) {
+				console.log(res);
 				if(res.status == 200) {
 					alert("There are no campaigns today.");
 					top.window.location.reload(true);
 				} else if(res.status == 999) { // IF THE USER WINS
 					var fbmessage = "I just won tickets to the Sydney Telstra 500 using the Love Every Second of Sydney Pass the Parcel app. Unwrap a layer to win!";
-					var fblink = "https://apps.facebook.com/sydneyparcel/";
+					var fblink = "https://apps.facebook.com/sydneyinsummer/";
 					var fbcaption = "Love Every Second of Sydney in Summer!"
 					$('#enter').animate({'top':'+=20px','opacity':0.8}).animate({'top':'-300px','opacity':0}, function() {
 						$(this).hide().css('opacity',1);
@@ -166,7 +167,7 @@ $(function() { // ENCAPSULATE EVERYTHING IN JQUERY, EVEN FUNCTIONS
 				} else if(res.status == 201) { // IF THE USER LOSES
 					if(res.num_plays == 1) { // FIRST TIME
 						var fbmessagelose = "I just unwrapped a layer of the Love Every Second of Sydney Pass the Parcel app. Unwrap a layer to win!";
-						var fblinklose = "https://apps.facebook.com/sydneyparcel/";
+						var fblinklose = "https://apps.facebook.com/sydneyinsummer/";
 						var fbcaptionlose = "Love Every Second of Sydney in Summer!"
 						$('.button-link').hide();
 						$('#enter').animate({'top':'+=20px','opacity':0.8}).animate({'top':'-300px','opacity':0});

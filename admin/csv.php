@@ -2,8 +2,10 @@
 
 @header("Last-Modified: " . @date("D, d M Y H:i:s",$_GET['timestamp']));
 @header("Content-Type: text/csv");
+@header("Pragma: no-cache");
+@header("Expires: 0");
 
-$date = date('m-d-Y', $_GET['timestamp']);
+$date = date('m-d-Y', $_GET['timestamp']/1000);
 
 require_once('../config.php');
 
@@ -14,20 +16,19 @@ if(!isset($_SERVER['HTTP_X_REQUESTED_WITH']) || strtolower($_SERVER['HTTP_X_REQU
 }
 
 $q1 = $db->select('users', array('admin'=>array('$exists'=>false)));
-//$csvOutput = "ID,First Name,Last Name,Email,Blogger,City/Province,Country,News,Date"."\n";
+$csvOutput = '';
 foreach($q1 as $row) {
 	(($row['news']) == 0) ? $news = 'No' : $news = 'Yes';
-	$csvOutput .= $row['_id'] . ',';
-	$csvOutput .= $row['first_name'] . ',';
-	$csvOutput .= $row['last_name'] . ',';
-	$csvOutput .= $row['email'] . ',';
-	$csvOutput .= $blogger . ',';
-	$csvOutput .= str_replace(',','-', $row['location']) . ',';
-	$csvOutput .= $row['country'] . ',';
-	$csvOutput .= $news . ',';
-	$csvOutput .= date('m d Y', $row['date']->sec) . "\n";
+	$userdate = date('M d Y H:i:s a e', $row['date']->sec);
+	$csvOutput .= $row['fbid'] . ",";
+	$csvOutput .= $row['first_name'] . ",";
+	$csvOutput .= $row['last_name'] . ",";
+	$csvOutput .= $row['email'] . ",";
+	$csvOutput .= $row['gender']. ",";
+	$csvOutput .= str_replace(',','|', $row['location']) . ",";
+	$csvOutput .= $userdate . "\n";
 }
 
-echo $csvOutput;
+print $csvOutput;
 
 ?>

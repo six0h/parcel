@@ -9,7 +9,6 @@ header("Pragma: no-cache");
 require_once('../../config.php');
 $status = 200;
 $errors = array();
-
 // MAKE SURE ALL REQUIRED INFORMATION IS PRESENT, IF NOT, THROW ERROR
 if(!isset($_POST['id'])
 || !isset($_POST['email'])
@@ -21,6 +20,9 @@ if(!isset($_POST['id'])
 	$response = array('status' => $status,'errors'=>$errors);
 	exit(0);
 }
+
+(isset($_POST['phone'])) ? $phone = $_POST['phone'] : $phone = '';
+(isset($_POST['news']) && $_POST['news'] == 'on') ? $news = 1 : $news = 0;
 
 // IF IT IS PRESENT, CONTINUE
 $today = new MongoDate(strtotime('today'));
@@ -94,7 +96,10 @@ foreach($todays_time as $time) {
 					'campaign_id' => $_id,
 					'key'=>$key,
 					'fbid'=>$_POST['id'],
-					'win_time'=>$now));
+					'win_time'=>$now,
+					'campaign_date'=>$time['date'],
+					'phone' => $phone,
+					'postal' => $postal));
 			} catch (Exception $e) {
 				$status = 500;
 				$errors[] = $e->getMessage();

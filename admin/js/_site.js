@@ -1,6 +1,22 @@
 
 
 $(function() {
+	$('.exportLink').click(function() {
+		var link = $(this).attr('href');
+		var MyTimestamp = new Date().getTime();
+		var dateStart = $('#dateStart').val();
+		var dateEnd = $('#dateEnd').val();
+		if(dateStart != '' && dateEnd != '') {
+			var dateString = '&dateStart='+dateStart+'&dateEnd='+dateEnd;
+		} else {
+			var dateString = '';
+		}
+		$.get(link,'timestamp='+MyTimestamp+dateString,function(){
+			document.location.href=link+'?timestamp='+MyTimestamp+dateString;
+		});
+		return false;
+	});
+
 	$('#nav li').click(function() {
 		top.window.location = '/index.php?p='+$(this).attr('id');
 	});

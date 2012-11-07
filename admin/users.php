@@ -217,7 +217,7 @@ echo "<br />";
 			<td><?php echo $first_name; ?></td>
 			<td><?php echo $last_name; ?></td>
 			<td><?php echo $email; ?></td>
-			<td><?php echo date('m/d/Y h:i:s', $date->sec); ?></td>
+			<td><?php echo date('m/d/Y H:i:s e', $date->sec); ?></td>
 			<td><?php echo $ip; ?></td>
 			<td><a href="index.php?p=users&edit=1&id=<?php echo $_id;?>">Edit</a></td>
 			<td><a href="index.php?p=users&delete=1&id=<?php echo $_id;?>">Delete</a></td>
@@ -230,7 +230,7 @@ echo "<br />";
 $crit = array('admin' => array('$exists' => false));
 $results = $db->select('users',$crit);
 $count = $db->count('users',$crit);
-echo "<span class='content'>Total Users: ".$count; // ( <a href='".$_SERVER['PHP_SELF']."?p=users&add=1'>Add User</a> )</span><a id='exportLink' href='#'>Export to CSV</a>";
+echo "<span class='content'>Total Users: ".$count." (<a class='exportLink' href='csv.php'>Export to CSV</a>)";
 echo "<br />";
 ?>
 
@@ -254,11 +254,11 @@ echo "<br />";
 			if($res['ip'] == '') $ip = '0.0.0.0';
 		?>
 		<tr id="user_<?php echo $_id;?>">
-			<td><?php echo $fbid; ?></td>
+			<td><?php echo (int) $fbid; ?></td>
 			<td><?php echo $first_name; ?></td>
 			<td><?php echo $last_name; ?></td>
 			<td><?php echo $email; ?></td>
-			<td><?php echo date('m/d/Y h:i:s', $date->sec); ?></td>
+			<td><?php echo date('m/d/Y H:i:s e', $date->sec); ?></td>
 			<td><?php echo $ip; ?></td>
 			<td><a href="index.php?p=users&edit=1&id=<?php echo $_id;?>">Edit</a></td>
 			<td><a href="index.php?p=users&delete=1&id=<?php echo $_id;?>">Delete</a></td>
@@ -266,16 +266,3 @@ echo "<br />";
 		<?php } ?>
 	</tbody>
 </table>
-<script type="text/javascript">
-/*
-$(function() {
-	$('#exportLink').click(function() {
-		MyTimestamp = new Date().getTime(); 
-		$.get('csv.php','timestamp='+MyTimestamp,function(){
-			document.location.href='csv.php?timestamp='+MyTimestamp;
-		});
-		return false();
-	});
-});
-*/
-</script>
