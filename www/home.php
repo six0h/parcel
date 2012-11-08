@@ -56,12 +56,12 @@ $liked = $sr['page']['liked'];
 ?>
 
 <!DOCTYPE html>
-<html>
-
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:og="http://ogp.me/ns#" 
+    xmlns:fb="https://www.facebook.com/2008/fbml">
 <head>
 
 	<title>Pass the Parcel | Love Every Second. Sydney in Summer.</title>
-	<meta name="og:description" content="Love Every Second of Sydney Pass the Parcel app. Unwrap a layer to win!"/>
+	<meta name="og:title" content="Love Every Second of Sydney Pass the Parcel app. Unwrap a layer to win!"/>
 	<meta charset="utf-8" />
 
 	<link rel="stylesheet" type="text/css" href="css/style.css?date=<?php $date; ?>" />

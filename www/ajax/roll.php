@@ -142,6 +142,8 @@ foreach($todays_time as $time) {
 	}
 }
 
+if(!isset($roll)) $roll = '';
+
 $response = array(
 	'status' => (int) $status,
 	'errors' => $errors,

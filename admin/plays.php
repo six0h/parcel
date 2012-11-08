@@ -2,8 +2,8 @@
 
 require_once('../config.php');
 
-(isset($_GET['dateStart'])) ? $dateStart = strtotime($_GET['dateStart']) : $dateStart = '';
-(isset($_GET['dateEnd'])) ? $dateEnd = strtotime($_GET['dateEnd']) + 86400 : $dateEnd = '';
+(isset($_GET['dateStart'])) ? $dateStart = date('M d Y', strtotime($_GET['dateStart'])) : $dateStart = '';
+(isset($_GET['dateEnd'])) ? $dateEnd = date('M d Y', strtotime($_GET['dateEnd'])) + 86400 : $dateEnd = '';
 
 if(!empty($dateStart) && !empty($dateEnd)) {
 	$crit = array('date'=>array('$gte'=>new MongoDate($dateStart),'$lt'=>new MongoDate($dateEnd)));
@@ -14,9 +14,10 @@ if(!empty($dateStart) && !empty($dateEnd)) {
 $items = $db->select('plays',$crit,array('sort'=>array('date'=>1)));
 $count = $db->count('plays',array());
 
+(!empty($dateEnd)) ? $dateEnd = (int) $dateEnd - 86400 : $dateEnd = '';
 ?>
 
-<form method="GET" action="<?php echo $_SERVER['PHP_SELF']; ?>?p=plays">Start Date <input type="text" id="dateStart" name="dateStart" value="<?php echo date('M d Y', $dateStart); ?>"/> End Date <input type="text" id="dateEnd" name="dateEnd" value="<?php echo date('M d Y', $dateEnd-86400); ?>" /><input type="submit" value="Get Range" id="submit"/><input type="hidden" id="p" name="p" value="plays"></form>
+<form method="GET" action="<?php echo $_SERVER['PHP_SELF']; ?>?p=plays">Start Date <input type="text" id="dateStart" name="dateStart" value="<?php echo $dateStart; ?>"/> End Date <input type="text" id="dateEnd" name="dateEnd" value="<?php echo $dateEnd; ?>" /><input type="submit" value="Get Range" id="submit"/><input type="hidden" id="p" name="p" value="plays"></form>
 <p>Total Plays: <?php echo $count; ?> ( <a href="csv-plays.php" class="exportLink">Export to CSV</a> )</p>
 <table class="modal">
 	<thead>

@@ -67,7 +67,7 @@ $i = 1;
 			<li><label for="email">Email Address*</label><input type="text" name="email" id="email"/></li>
 			<li><label for="location">Location*</label><input type="text" name="location" id="location"/></li>
 			<li><label for="postal">Post Code*</label><input type="text" name="postal" id="postal"/></li>
-			<li><label for="phone">Phone Number</label><input type="text" name="phone" id="phone"/></li>
+			<li><label for="phone">Phone Number*</label><input type="text" name="phone" id="phone"/></li>
 			<li><label for="news">I would like to be contacted on any deal and promotions related to Sydney</label>
 				<input type="checkbox" name="news" id="news" class="checks" /></li>
 			<li class="agree"><label for="agree">I agree to the Terms & Conditions*</label>

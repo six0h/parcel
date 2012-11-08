@@ -338,7 +338,8 @@ $(function() { // ENCAPSULATE EVERYTHING IN JQUERY, EVEN FUNCTIONS
                     },
                     location: "required",
                     postal: "required",
-					agree: "required"
+					agree: "required",
+		phone: "required"
                 },
 
             messages: {
@@ -350,7 +351,8 @@ $(function() { // ENCAPSULATE EVERYTHING IN JQUERY, EVEN FUNCTIONS
 	                },
 	                location: "Please tell us what city you're in.",
 	                postal: "Please provide your postal code.",
-					agree: "Please agree to the terms and conditions."
+					agree: "Please agree to the terms and conditions.",
+				phone: "Please provide your phone number"
                 },
 
 		errorPlacement: function(error, element) {

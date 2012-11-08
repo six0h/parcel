@@ -28,9 +28,9 @@ $items = $db->select('campaigns',array(),array('sort'=>array('_id'=>1)));
 		$_id = $item['_id'];
 		$date = $item['date'];
 		$key = $item['key'];
-		(isset($item['last_claim'])) ? $last_claim = date('M d Y H:i:s e', $item['last_claim']->sec) : $last_claim = '';
+		(is_object($item['last_claim'])) ? $last_claim = date('M d Y H:i:s e', $item['last_claim']->sec) : $last_claim = '';
+		(is_object($item['win_time'])) ? $win_time = date('M d Y H:i:s e', $item['win_time']->sec) : $win_time = '';
 		(isset($item['winner'])) ? $winner = $item['winner'] : $winner = '';
-		(isset($item['win_time'])) ? $win_time = $item['win_time'] : $win_time = '';
 		(isset($item['caption'])) ? $caption = $item['caption'] : $caption = '';
 		(isset($item['prize'])) ? $prize = $item['prize'] : $prize = '';
 	?>

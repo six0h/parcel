@@ -128,7 +128,6 @@ $(function() { // ENCAPSULATE EVERYTHING IN JQUERY, EVEN FUNCTIONS
 			},
 			// IF THE ROLL WAS SUCCESSFUL (NO SERVER ERRORS)
 			success: function(res) {
-				console.log(res);
 				if(res.status == 200) {
 					alert("There are no campaigns today.");
 					top.window.location.reload(true);
@@ -176,7 +175,7 @@ $(function() { // ENCAPSULATE EVERYTHING IN JQUERY, EVEN FUNCTIONS
 					} else { // SETUP NEW COPY IF USER LOSES SECOND TIME
 						$('#enter').animate({'top':'+=20px','opacity':0.8}).animate({'top':'-300px','opacity':0});
 						$('#result h1').html("Still not the one. Better Luck Tomorrow.").css('font-size','1.2em');
-						$('#result .copy-box p').html("We've got more parcels with more great Sydney experiences every day. So, remember to come back tomorrow and have another go.<br/><br/>In the meantime, click continue to discover what Sydney has to offer.").css('font-size','0.9em');
+						$('#result .copy-box p').html("We've got more parcels with more great Sydney experiences every day. So, remember to come back tomorrow and have another go.<br/><br/>In the meantime, click find out more and discover what Sydney has to offer.").css('font-size','0.9em');
 						$('#result .button-small, #result #result-btn').hide();
 						$('#result').append('<a href="#" id="finalBtn" class="button-link">Continue <span class="arrow">&gt;</a>');
 						$('#result .button-link').fadeIn();
@@ -346,8 +345,7 @@ $(function() { // ENCAPSULATE EVERYTHING IN JQUERY, EVEN FUNCTIONS
                     },
                     location: "required",
                     postal: "required",
-		agree: "required",
-		   phone: "required"
+					agree: "required"
                 },
 
             messages: {
@@ -359,8 +357,7 @@ $(function() { // ENCAPSULATE EVERYTHING IN JQUERY, EVEN FUNCTIONS
 	                },
 	                location: "Please tell us what city you're in.",
 	                postal: "Please provide your postal code.",
-					agree: "Please agree to the terms and conditions.",
-			phone: "Please provide your phone number."
+					agree: "Please agree to the terms and conditions."
                 },
 
 		errorPlacement: function(error, element) {
