@@ -28,6 +28,8 @@ echo "<span class='content'>Total Users: ".$count." (<a class='exportLink' href=
 		if(isset($item['campaign_id'])) $id = $item['campaign_id'];
 		if(isset($item['key'])) $key = $item['key'];
 		if(isset($item['fbid'])) $fbid = $item['fbid'];
+		(isset($item['phone'])) ? $phone = $item['phone'] : $phone = '';
+		(isset($item['postal'])) ? $postal = $item['postal'] : $postal = '';
 		$user = $db->select('users',array('fbid'=>$item['fbid']));
 		foreach($user as $u) $name = $u['first_name']. " " .$u['last_name'];
 		if(is_object($item['win_time'])) $win_time = date('M d Y H:i:s e', $item['win_time']->sec);

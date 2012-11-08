@@ -18,13 +18,14 @@ if(!isset($_SERVER['HTTP_X_REQUESTED_WITH']) || strtolower($_SERVER['HTTP_X_REQU
 $q1 = $db->select('users', array('admin'=>array('$exists'=>false)));
 $csvOutput = '';
 foreach($q1 as $row) {
-	(($row['news']) == 0) ? $news = 'No' : $news = 'Yes';
+	(($row['news']) == 1) ? $news = 'Yes' : $news = 'No';
 	$userdate = date('M d Y H:i:s a e', $row['date']->sec);
 	$csvOutput .= $row['fbid'] . ",";
 	$csvOutput .= $row['first_name'] . ",";
 	$csvOutput .= $row['last_name'] . ",";
 	$csvOutput .= $row['email'] . ",";
 	$csvOutput .= $row['gender']. ",";
+	$csvOutput .= $news. ",";
 	$csvOutput .= str_replace(',','|', $row['location']) . ",";
 	$csvOutput .= $userdate . "\n";
 }

@@ -45,6 +45,22 @@ try {
 	exit();
 }
 
+$today = new MongoDate(strtotime('today'));
+$tomorrow = new MongoDate(strtotime('tomorrow'));
+
+$campaigns = $db->select('campaigns',array('date'=>array('$gte'=>$today,'$lt'=>$tomorrow)));
+foreach($campaigns as $camp) $camp_id = $camp['_id'];
+
+$set = array('$set'=>array('phone'=>$_POST['phone'],'postal'=>$_POST['postal']));
+$crit = array('campaign_id'=>$camp_id);
+
+try {
+	$db->update('winners',$crit,$set);
+} catch (Exception $e) {
+	$status = 500;
+	$errors[] = 'Could not update winner phone and postal code records';
+}
+
 echo json_encode(array(
 	'status'=>$status,
 	'errors'=>$errors));

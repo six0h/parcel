@@ -4,3 +4,4 @@ assets/
 .fuse*
 app-config.js
 www/uploads/*
+*.bak

@@ -97,9 +97,7 @@ foreach($todays_time as $time) {
 					'key'=>$key,
 					'fbid'=>$_POST['id'],
 					'win_time'=>$now,
-					'campaign_date'=>$time['date'],
-					'phone' => $phone,
-					'postal' => $postal));
+					'campaign_date'=>$time['date']));
 			} catch (Exception $e) {
 				$status = 500;
 				$errors[] = $e->getMessage();

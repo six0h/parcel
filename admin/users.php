@@ -242,7 +242,7 @@ echo "<br />";
 			<th>Last</th>
 			<th>Email</th>
 			<th>Date</th>
-			<th>IP</th>
+			<th>News</th>
 			<th>Edit</th>
 			<th>Delete</th>
 		</tr>
@@ -251,7 +251,7 @@ echo "<br />";
 		<?php
 		foreach($results as $res) {
 			foreach($res as $key => $value) $$key = $value;
-			if($res['ip'] == '') $ip = '0.0.0.0';
+			($news == 1) ? $news = 'Yes' : $news = 'No';
 		?>
 		<tr id="user_<?php echo $_id;?>">
 			<td><?php echo (int) $fbid; ?></td>
@@ -259,7 +259,7 @@ echo "<br />";
 			<td><?php echo $last_name; ?></td>
 			<td><?php echo $email; ?></td>
 			<td><?php echo date('m/d/Y H:i:s e', $date->sec); ?></td>
-			<td><?php echo $ip; ?></td>
+			<td><?php echo $news; ?></td>
 			<td><a href="index.php?p=users&edit=1&id=<?php echo $_id;?>">Edit</a></td>
 			<td><a href="index.php?p=users&delete=1&id=<?php echo $_id;?>">Delete</a></td>
 		</tr>
