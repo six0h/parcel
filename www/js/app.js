@@ -252,10 +252,12 @@ $(function() { // ENCAPSULATE EVERYTHING IN JQUERY, EVEN FUNCTIONS
 								'opacity': 0
 							}).hide();
 						}
+						user_info.salt = '';
 						$('#spriteBox').fadeOut();
 						$('#photos img').fadeOut();
 						$('#thered').fadeIn();
-						bringTheRed(registration());
+						bringTheRed();
+						registration();
 					},
 					error: function(response) {
 						for(err in response.errors) {

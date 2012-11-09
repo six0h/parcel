@@ -244,10 +244,12 @@ $(function() { // ENCAPSULATE EVERYTHING IN JQUERY, EVEN FUNCTIONS
 								$(this).hide();
 							});
 						}
+						user_info.salt = '';
 						$('#spriteBox').hide();
 						$('#photos img').hide();
 						$('#thered').show();
-						bringTheRed(registration());
+						bringTheRed();
+						registration();
 					},
 					error: function(response) {
 						for(err in response.errors) {

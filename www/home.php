@@ -61,7 +61,8 @@ $liked = $sr['page']['liked'];
 <head>
 
 	<title>Pass the Parcel | Love Every Second. Sydney in Summer.</title>
-	<meta name="og:title" content="Love Every Second of Sydney Pass the Parcel app. Unwrap a layer to win!"/>
+	<meta name="og:title" content="Pass the parcel this summer to win a daily prize to some of Sydney's best summer events!"/>
+	<meta name="og:description" content="Pass the parcel this summer to win a daily prize to some of Sydney's best summer events!" />
 	<meta charset="utf-8" />
 
 	<link rel="stylesheet" type="text/css" href="css/style.css?date=<?php $date; ?>" />

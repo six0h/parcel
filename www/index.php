@@ -18,9 +18,13 @@ if($detect->isTablet()) {
 }
 ?>
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:og="http://ogp.me/ns#" 
+    xmlns:fb="https://www.facebook.com/2008/fbml">
 <head>
 	<title>Pass the Parcel!</title>
+
+	<meta property="og:title" content="Pass the Parcel for your chance to win amazing Sydney prizes!"/>
+	<meta property="og:description" content="Pass the Parcel for your chance to win amazing Sydney prizes!"/>
 
 	<script type="text/javascript">
 		var page_tab_url = '<?php echo PAGE_TAB; ?>';

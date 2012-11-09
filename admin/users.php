@@ -201,9 +201,6 @@ echo "<br />";
 			<th>Last</th>
 			<th>Email</th>
 			<th>Date</th>
-			<th>IP</th>
-			<th>Edit</th>
-			<th>Delete</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -218,9 +215,6 @@ echo "<br />";
 			<td><?php echo $last_name; ?></td>
 			<td><?php echo $email; ?></td>
 			<td><?php echo date('m/d/Y H:i:s e', $date->sec); ?></td>
-			<td><?php echo $ip; ?></td>
-			<td><a href="index.php?p=users&edit=1&id=<?php echo $_id;?>">Edit</a></td>
-			<td><a href="index.php?p=users&delete=1&id=<?php echo $_id;?>">Delete</a></td>
 		</tr>
 	<?php } ?>
 	</tbody>
@@ -243,8 +237,6 @@ echo "<br />";
 			<th>Email</th>
 			<th>Date</th>
 			<th>News</th>
-			<th>Edit</th>
-			<th>Delete</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -260,8 +252,6 @@ echo "<br />";
 			<td><?php echo $email; ?></td>
 			<td><?php echo date('m/d/Y H:i:s e', $date->sec); ?></td>
 			<td><?php echo $news; ?></td>
-			<td><a href="index.php?p=users&edit=1&id=<?php echo $_id;?>">Edit</a></td>
-			<td><a href="index.php?p=users&delete=1&id=<?php echo $_id;?>">Delete</a></td>
 		</tr>
 		<?php } ?>
 	</tbody>
